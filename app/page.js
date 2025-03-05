@@ -1,10 +1,15 @@
+import Header from "./_Components/Header";
+import QueueButton from "./_Components/QueueButton";
 import SpaceScene from "./_Components/SpaceTheme/SpaceTheme";
 
 export default function Home() {
   return (
-    <main className="w-full h-screen flex justify-center items-center">
+    <div className="h-screen w-full flex-col flex">
       <SpaceScene></SpaceScene>
-      <button className="px-5 py-3 text-3xl bg-black/70  rounded-md border-[1px]">Queue</button>
-    </main>
+      <Header></Header>
+      <main className="w-full flex justify-center grow items-center">
+        <QueueButton></QueueButton>
+      </main>
+    </div>
   );
 }
