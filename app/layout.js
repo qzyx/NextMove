@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Suspense } from "react";
+import Header from "./_Components/Header";
+import SpaceScene from "./_Components/SpaceTheme/SpaceTheme";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,8 +37,10 @@ export default function RootLayout({ children }) {
         ></link>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col h-screen`}
       >
+        <SpaceScene></SpaceScene>
+        <Header></Header>
         {children}
       </body>
     </html>

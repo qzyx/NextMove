@@ -17,7 +17,7 @@ function Loader() {
 }
 export default function SpaceScene() {
   return (
-    <div className="w-full h-screen absolute -z-1">
+    <div className="w-full h-screen absolute -z-2">
       <Canvas camera={{ position: [0, 0, 5] }}>
         <Suspense fallback={<Loader />}>
           <FloatingCamera></FloatingCamera>
