@@ -14,6 +14,7 @@ export default function TopPlayersForm() {
         <TopPlayerItem></TopPlayerItem>
         <TopPlayerItem></TopPlayerItem>
         <TopPlayerItem></TopPlayerItem>
+        <TopPlayerItem></TopPlayerItem>
       </div>
       <button>See All</button>
     </div>

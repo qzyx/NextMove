@@ -1,10 +1,7 @@
-import Qbutton from "./_Components/Qbutton";
 import QSection from "./_Components/QSection";
 import RecentMatches from "./_Components/RecentMatches";
+import UserLocalProfile from "./_Components/UserLocalProfile";
 import Statistics from "./_Components/Statistics";
-import TopPlayersForm from "./_Components/TopPlayersForm";
-import GameIntroduction from "./_Components/UI/GameIntroduction";
-import NameTag from "./_Components/UI/NameTag";
 const localUser = {
   pfp: "https://avatars.githubusercontent.com/u/77445921?v=4",
   name: "Qwyxo",
@@ -62,12 +59,9 @@ export default function Home() {
     <main className=" w-full h-full text-white p-4  max-w-7xl mx-auto lg:mt-35 mt-15">
       <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 p-6 lg:gap-6 lg:p-6">
         <QSection></QSection>
-        <Statistics localUser={localUser}></Statistics>
+        <UserLocalProfile localUser={localUser}></UserLocalProfile>
         <RecentMatches recentMatches={localUser.recentMatches}></RecentMatches>
-        <div
-          className="bg-gradient-to-b from-gray-900/60 to-gray-800 p-6 rounded-lg border border-gray-700 
-        shadow-xl transition-colors col-span-1 lg:col-span-3 h-75"
-        ></div>
+        <Statistics localUser={localUser}></Statistics>
       </div>
     </main>
   );

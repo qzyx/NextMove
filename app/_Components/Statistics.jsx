@@ -1,76 +1,27 @@
-import {
-  ArrowLeft,
-  Award,
-  TrendingUp,
-  Calendar,
-  Clock,
-  Users,
-  BookOpen,
-  Flag,
-} from "lucide-react";
+import { TrendingUp } from "lucide-react";
 
 function Statistics({ localUser }) {
-  // Function to convert seconds to MM:SS format
-  const formatPlaytime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
-      .toString()
-      .padStart(2, "0")}`;
-  };
-
   return (
     <div
       className="bg-gradient-to-b from-gray-900/60 to-gray-800 p-6 rounded-lg border border-gray-700 
-  shadow-xl transition-colors col-span-1 lg:col-span-4 h-55 flex flex-col gap-4 justify-around"
+  shadow-xl transition-colors col-span-1 lg:col-span-3 h-75 flex flex-col gap-4"
     >
-      <div className="flex items-center gap-4 text-xl ">
-        <img src={localUser.pfp} className="h-12 rounded-full"></img>
-        <span>{localUser.name}</span>
-      </div>
-      <div className="flex items-center gap-4 text-lg">
-        <span>
-          <span className="mx-2">•</span>
-          <span>{localUser.elo} ELO</span>
-        </span>
-        <span className="flex">
-          <Award></Award>
-          <span>Rank: #{localUser.rank}</span>
-        </span>
-      </div>
-      <div className="flex gap-4 items-center ">
-        <div className="flex gap-3 items-center">
-          <span>
-            <Calendar></Calendar>
-          </span>
-          <span className="flex flex-col ">
-            <span className="text-sm text-gray-300 hidden sm:inline-block">
-              Member Since
-            </span>
-            <span>{localUser.created_at}</span>
-          </span>
+      <span className="flex gap-2 text-xl items-center">
+        <TrendingUp size={32} />
+        <span>Statistics</span>
+      </span>
+      <div className="flex justify-around text-gray-300 text-lg">
+        <div className="h-20 w-20 sm:w-30 bg-gray-800 rounded-xl flex flex-col gap-1 items-center">
+          <span>Wins</span>
+          <span className="text-green-500">{localUser.wins}</span>
         </div>
-        <div className="flex gap-3 items-center">
-          <span>
-            <Clock></Clock>
-          </span>
-          <span className="flex flex-col ">
-            <span className="text-sm text-gray-300 hidden sm:inline-block">
-              Average Playtime
-            </span>
-            <span>{formatPlaytime(localUser.averagePlayTime)}</span>
-          </span>
+        <div className="h-20 w-20 sm:w-30 bg-gray-800 rounded-xl flex flex-col gap-1 items-center">
+          <span>Loses</span>
+          <span className="text-red-500 ">{localUser.loses}</span>
         </div>
-        <div className="flex gap-3 items-center">
-          <span>
-            <Users></Users>
-          </span>
-          <span className="flex flex-col">
-            <span className="text-sm text-gray-300 hidden sm:inline-block">
-              Total Games
-            </span>
-            <span>{localUser.totalGames}</span>
-          </span>
+        <div className="h-20 w-20 sm:w-30 bg-gray-800 rounded-xl flex flex-col gap-1 items-center">
+          <span>Draw</span>
+          <span className="text-yellow-500">{localUser.draws}</span>
         </div>
       </div>
     </div>
