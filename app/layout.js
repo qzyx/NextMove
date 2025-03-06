@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
         ></link>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col md:h-screen`}
       >
         <SpaceScene></SpaceScene>
         <Header></Header>
