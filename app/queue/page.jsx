@@ -1,4 +1,6 @@
+import Link from "next/link";
 import LoadingSpinner from "../_Components/LoadingSpinner";
+import StopQueueButton from "./StopQueueButton";
 
 function page() {
   return (
@@ -7,9 +9,8 @@ function page() {
         <LoadingSpinner size={60} borderWidth={4} />
         <p className="text-xl font-light tracking-wider">Finding a match...</p>
         <p className="font-bold">Qwyxo</p>
-        <button className="border-[1px] border-red-500 p-2 hover:bg-red-500 transition-all duration-150 cursor-pointer rounded-md">
-          Stop Queueing
-        </button>
+        <StopQueueButton></StopQueueButton>
+        <Link href={"/game"}>To Game</Link>
       </div>
     </main>
   );
