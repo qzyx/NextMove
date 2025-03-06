@@ -6,7 +6,7 @@ export default function TopPlayersForm() {
       <div>
         <span className="text-xl">Top Players</span>
       </div>
-      <div className="bg-black/60 border-[#eae7e198] border-1 rounded-xl w-[95%] h-[80%] flex flex-col p-2 overflow-scroll gap-1">
+      <div className="bg-black  top_player_form rounded-xl w-[95%] h-[80%] flex flex-col p-2 overflow-scroll gap-1">
         <TopPlayerItem></TopPlayerItem>
         <TopPlayerItem></TopPlayerItem>
         <TopPlayerItem></TopPlayerItem>
