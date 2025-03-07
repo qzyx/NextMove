@@ -1,11 +1,7 @@
 import QSection from "./_Components/HomePageComponents/Queue/QSection";
 import RecentMatches from "./_Components/HomePageComponents/RecentMatches";
-import UserLocalProfile from "./_Components/HomePageComponents/UserLocalProfile";
 import Statistics from "./_Components/HomePageComponents/Statistics";
-import { getSession } from "./_lib/actions/auth";
-import { supabase } from "./_lib/supabase";
-import { useAuth } from "./_lib/authContext/AuthContext";
-import Cookies from "js-cookie";
+import UserLocalProfile from "./_Components/HomePageComponents/UserLocalProfile";
 const localUser = {
   pfp: "https://avatars.githubusercontent.com/u/77445921?v=4",
   name: "Qwyxo",
@@ -58,8 +54,6 @@ const localUser = {
 };
 
 export default async function Home() {
-  const session = await getSession();
-  console.log("Session:", session);
   return (
     <main className=" w-full h-full text-white p-4  max-w-7xl mx-auto lg:mt-35 mt-15">
       <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 p-6 lg:gap-6 lg:p-6">
