@@ -1,8 +1,8 @@
 "use client";
 
-import { ChevronDown, ChevronUp, MenuSquareIcon } from "lucide-react";
+import { ChevronDown, ChevronUp, Info, Mail } from "lucide-react";
 import { useState } from "react";
-import DropDownItem from "./DropDownItem";
+import { HeaderButton } from "../UI/Header";
 
 function Menu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,11 +18,18 @@ function Menu() {
           <ChevronDown size={35}></ChevronDown>
         )}
       </button>
-      <div className="gap-2 hidden md:block text-white"></div>
+
       {isOpen && (
-        <div className="dropDown-menu  text-black font-bold flex flex-col gap-2 p-2 absolute w-40  border-[1px] bg-white/80 rounded right-2">
-          <DropDownItem>About</DropDownItem>
-          <DropDownItem>Contact</DropDownItem>
+        <div className="dropDown-menu  text-black font-bold flex flex-col gap-2 p-2 absolute w-40  border-[1px]  bg-black rounded right-2">
+          <HeaderButton icon={Info} href="/about">
+            About
+          </HeaderButton>
+          <HeaderButton icon={Mail} href="/contact">
+            Contact
+          </HeaderButton>
+          <HeaderButton icon={Mail} href="/logout">
+            Log Out
+          </HeaderButton>
         </div>
       )}
     </div>
