@@ -25,7 +25,7 @@ function Qbutton() {
         <div className="flex items-center gap-2 relative justify-center z-10">
           {/* Text shadow for better readability */}
           <span className="transition-transform duration-300 group-hover:translate-x-[-15px] tracking-wider text-shadow-sm">
-            QUEUE
+            Queue
           </span>
           <span
             className="absolute -right-9 opacity-0 translate-x-[-15px] transition-all duration-300 

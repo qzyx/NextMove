@@ -3,6 +3,7 @@ import "./globals.css";
 import { Suspense } from "react";
 import Header from "./_Components/UI/Header";
 import SpaceScene from "./_Components/SpaceTheme/SpaceTheme";
+import { AuthProvider } from "./_lib/authContext/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,7 +42,7 @@ export default function RootLayout({ children }) {
       >
         <SpaceScene></SpaceScene>
         <Header></Header>
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
