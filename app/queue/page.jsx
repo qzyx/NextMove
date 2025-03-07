@@ -1,5 +1,5 @@
 import Link from "next/link";
-import LoadingSpinner from "../_Components/LoadingSpinner";
+import LoadingSpinner from "../_Components/UI/LoadingSpinner";
 import StopQueueButton from "./StopQueueButton";
 
 function page() {

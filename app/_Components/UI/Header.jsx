@@ -1,10 +1,10 @@
 import Link from "next/link";
-import DropDownItem from "./DropDownItem";
-import Menu from "./Menu";
+import DropDownItem from "../DropDown/DropDownItem";
+import Menu from "../DropDown/Menu";
 
 function Header() {
   return (
-    <div className=" fixed bg-black/70 flex p-3 justify-between w-full md:justify-start items-center   gap-10">
+    <div className=" fixed bg-black/70 z-10 flex p-3 justify-between w-full md:justify-start items-center   gap-10">
       <Link href={"/"} className="text-xl font-bold sm:text-2xl top-2 left-2">
         NextMove
       </Link>

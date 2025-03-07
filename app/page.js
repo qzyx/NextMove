@@ -1,7 +1,7 @@
-import QSection from "./_Components/QSection";
-import RecentMatches from "./_Components/RecentMatches";
-import UserLocalProfile from "./_Components/UserLocalProfile";
-import Statistics from "./_Components/Statistics";
+import QSection from "./_Components/HomePageComponents/Queue/QSection";
+import RecentMatches from "./_Components/HomePageComponents/RecentMatches";
+import UserLocalProfile from "./_Components/HomePageComponents/UserLocalProfile";
+import Statistics from "./_Components/HomePageComponents/Statistics";
 const localUser = {
   pfp: "https://avatars.githubusercontent.com/u/77445921?v=4",
   name: "Qwyxo",

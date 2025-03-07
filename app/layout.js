@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Suspense } from "react";
-import Header from "./_Components/Header";
+import Header from "./_Components/UI/Header";
 import SpaceScene from "./_Components/SpaceTheme/SpaceTheme";
 
 const geistSans = Geist({
