@@ -40,7 +40,7 @@ function Register() {
 
   return (
     <main className="min-h-screen w-full flex items-center justify-center ">
-      <div className="w-full max-w-md p-8 space-y-8 bg-gradient-to-b from-gray-900/60 to-gray-800 rounded-lg border border-gray-700 shadow-xl">
+      <div className="w-full max-w-md mx-2 sm:mx-0 p-8 space-y-8 bg-gradient-to-b from-gray-900/60 to-gray-800 rounded-lg border border-gray-700 shadow-xl">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-white">Create Account</h1>
           <p className="mt-2 text-gray-400">Join NextMove today</p>

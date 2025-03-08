@@ -1,6 +1,9 @@
+"use client";
+
 import { Info, LogOut, Mail } from "lucide-react";
 import Link from "next/link";
 import Menu from "../DropDown/Menu";
+import { useAuth } from "@/app/_lib/authContext/AuthContext";
 
 // Reusable header button component to ensure consistency
 export const HeaderButton = ({ children, icon, href, onClick }) => {
@@ -23,6 +26,7 @@ export const HeaderButton = ({ children, icon, href, onClick }) => {
 };
 
 function Header() {
+  const userData = useAuth();
   return (
     <div className="fixed bg-black/70 z-10 flex p-3 justify-between w-full md:justify-start items-center  gap-2 sm:gap-4 md:gap-6 xl:gap-10">
       <Link href={"/"} className="text-xl font-bold sm:text-2xl top-2 left-2">
@@ -44,7 +48,7 @@ function Header() {
             Contact
           </HeaderButton>
           <HeaderButton icon={LogOut} href="/logout">
-            Log Out
+            {userData.user ? "Logout" : "Login"}
           </HeaderButton>
         </span>
       </div>
