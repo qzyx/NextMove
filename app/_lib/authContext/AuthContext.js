@@ -10,6 +10,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     // Check for existing session on mount
     const fetchSession = async () => {
       const {
@@ -39,6 +40,7 @@ export function AuthProvider({ children }) {
     });
 
     return () => {
+      isMounted = false;
       subscription.unsubscribe();
     };
   }, []);

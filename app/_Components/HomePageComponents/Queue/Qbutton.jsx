@@ -5,10 +5,9 @@ import { PlayIcon } from "lucide-react";
 import Link from "next/link";
 
 function Qbutton() {
-  const userData = useAuth();
-  console.log(userData);
+  const {user} = useAuth();
   return (
-    <Link href={userData.user ? "/queue" : "/login"} className="h-full w-full p-4">
+    <Link href={user ? "/queue" : "/login"} className="h-full w-full p-4">
       <button
         className="w-full h-full flex justify-center items-center group text-4xl font-medium
                   bg-gradient-to-r from-gray-800/50 via-gray-900/50 to-gray-800/50
@@ -30,7 +29,7 @@ function Qbutton() {
         <div className="flex items-center gap-2 relative justify-center z-10">
           {/* Text shadow for better readability */}
           <span className="transition-transform duration-300 group-hover:translate-x-[-15px] tracking-wider text-shadow-sm">
-            {userData.user ? "Join Queue" : "Login to Play"}    
+            {user ? "Join Queue" : "Login to Play"}    
           </span>
           <span
             className="absolute -right-9 opacity-0 translate-x-[-15px] transition-all duration-300 

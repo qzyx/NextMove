@@ -34,8 +34,8 @@ export default function LogoutPage() {
   }, [router]);
 
   return (
-    <main className="min-h-screen w-full flex items-center justify-center">
-      <div className="w-full max-w-md p-8 space-y-8 bg-gradient-to-b from-gray-900/60 to-gray-800 rounded-lg border border-gray-700 shadow-xl text-center">
+    <main className="min-h-screen w-full  flex items-center justify-center">
+      <div className="w-full max-w-md p-8 mx-2 sm:mx-0 space-y-8 bg-gradient-to-b from-gray-900/60 to-gray-800 rounded-lg border border-gray-700 shadow-xl text-center">
         <h1 className="text-2xl font-bold text-white">Logging Out</h1>
 
         <div className="flex flex-col items-center justify-center gap-4 py-8">

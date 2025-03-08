@@ -42,6 +42,7 @@ export default function RootLayout({ children }) {
       >
         <SpaceScene></SpaceScene>
         <AuthProvider>
+          
           <Header></Header>
 
           {children}

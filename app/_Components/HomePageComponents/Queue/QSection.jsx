@@ -1,5 +1,4 @@
 
-import { useAuth } from "@/app/_lib/authContext/AuthContext";
 import Qbutton from "./Qbutton";
 
 function QSection() {
