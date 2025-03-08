@@ -56,16 +56,18 @@ const localUser = {
 };
 
 export default async function Home() {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
   return (
     <main className=" w-full h-full text-white p-4  max-w-7xl mx-auto lg:mt-35 mt-15">
       <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 p-6 lg:gap-6 lg:p-6">
         <Suspense fallback={<div>Loading...</div>}>
-
-        <QSection></QSection>
-        <UserLocalProfile localUser={localUser}></UserLocalProfile>
-        <RecentMatches recentMatches={localUser.recentMatches}></RecentMatches>
-        <Statistics localUser={localUser}></Statistics>
+          <QSection></QSection>
+          <UserLocalProfile localUser={localUser}></UserLocalProfile>
+          <RecentMatches
+            recentMatches={localUser.recentMatches}
+          ></RecentMatches>
+          <Statistics localUser={localUser}></Statistics>
         </Suspense>
       </div>
     </main>

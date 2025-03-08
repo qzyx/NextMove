@@ -4,6 +4,8 @@ import { Suspense } from "react";
 import Header from "./_Components/UI/Header";
 import SpaceScene from "./_Components/SpaceTheme/SpaceTheme";
 import { AuthProvider } from "./_lib/authContext/AuthContext";
+import LoadingSpinner from "./_Components/UI/LoadingSpinner";
+import PageLoadingSpinner from "./_Components/UI/PageLoadingSpinner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,12 +43,13 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <SpaceScene></SpaceScene>
-        <AuthProvider>
-          
-          <Header></Header>
+        <Suspense fallback={<PageLoadingSpinner></PageLoadingSpinner>}>
+          <AuthProvider>
+            <Header></Header>
 
-          {children}
-        </AuthProvider>
+            {children}
+          </AuthProvider>
+        </Suspense>
       </body>
     </html>
   );
