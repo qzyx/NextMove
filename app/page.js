@@ -73,3 +73,4 @@ export default async function Home() {
     </main>
   );
 }
+export const fetchCache = "force-no-store"; // Forces fresh load
