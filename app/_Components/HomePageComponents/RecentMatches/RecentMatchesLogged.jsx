@@ -11,57 +11,76 @@ export default function RecentMatchesLogged({ localUserProfile }) {
       .toString()
       .padStart(2, "0")}`;
   };
+
   return (
     <>
-      <span className="flex gap-2 text-xl items-center">
-        <BookOpen size={32} />
-        <span>Recent Matches</span>
-      </span>
+      <div className="flex justify-between items-center mb-5">
+        <span className="flex gap-2 items-center">
+          <BookOpen size={28} className="text-gray-300" />
+          <span className="text-xl font-medium">Recent Matches</span>
+        </span>
+        {localUserProfile.rank && (
+          <span className="text-sm text-gray-300">
+            Rank: {localUserProfile.rank}
+          </span>
+        )}
+      </div>
 
       {/* Headers */}
-      <div className="grid grid-cols-4  sm:grid-cols-5 text-gray-300 text-xs sm:text-sm  font-semibold border-b pb-2 text-center">
-        <span className="">Opponent</span>
-        <span>Result</span>
-        <span>Elo Change</span>
-        <span>Game Length</span>
-        <span className="hidden sm:block">Date</span>
+      <div className="grid grid-cols-4 sm:grid-cols-5 text-gray-400 text-xs sm:text-sm font-medium border-b border-gray-700/70 pb-2 text-center">
+        <span className="text-left pl-3">OPPONENT</span>
+        <span>RESULT</span>
+        <span>ELO</span>
+        <span>TIME</span>
+        <span className="hidden sm:block">DATE</span>
       </div>
 
       {/* Rows - each match will have its values under the right column */}
-      <div className="flex flex-col sm:gap-2  ">
-        {lastFourMatches.map((match, idx) => (
-          <div
-            key={idx}
-            className="grid grid-cols-4 sm:grid-cols-5 text-white text-xs sm:text-sm border-b border-gray-600 pb-2  text-center"
-          >
-            <span className="sm:text-center text-start">{match.opponent}</span>
-            <span
-              className={`${
-                match.result === "win"
-                  ? "text-green-400"
-                  : match.result === "loss"
-                  ? "text-red-400"
-                  : "text-yellow-400"
-              }`}
+      <div className="flex flex-col mt-2">
+        {lastFourMatches && lastFourMatches.length > 0 ? (
+          lastFourMatches.map((match, idx) => (
+            <div
+              key={idx}
+              className="grid grid-cols-4 sm:grid-cols-5 text-white text-xs sm:text-sm border-b border-gray-700/40 py-2.5 hover:bg-gray-800/30 rounded transition-colors"
             >
-              {match.result}
-            </span>
-            <span
-              className={
-                match.eloChange > 0
-                  ? "text-green-500"
-                  : match.eloChange < 0
-                  ? "text-red-500"
-                  : "text-yellow-500"
-              }
-            >
-              {match.eloChange > 0 ? `+${match.eloChange}` : match.eloChange}
-            </span>
-
-            <span>{formatPlaytime(match.gameLength)}</span>
-            <span className="hidden sm:block">{match.date}</span>
+              <span className="sm:text-center text-start pl-3 truncate">
+                {match.opponent}
+              </span>
+              <span
+                className={`${
+                  match.result === "win"
+                    ? "text-green-400 font-medium"
+                    : match.result === "loss"
+                    ? "text-red-400 font-medium"
+                    : "text-yellow-400 font-medium"
+                }`}
+              >
+                {match.result}
+              </span>
+              <span
+                className={`font-medium ${
+                  match.eloChange > 0
+                    ? "text-green-500"
+                    : match.eloChange < 0
+                    ? "text-red-500"
+                    : "text-yellow-500"
+                }`}
+              >
+                {match.eloChange > 0 ? `+${match.eloChange}` : match.eloChange}
+              </span>
+              <span className="text-gray-300 font-mono text-xs">
+                {formatPlaytime(match.gameLength)}
+              </span>
+              <span className="hidden sm:block text-gray-500 text-xs">
+                {match.date}
+              </span>
+            </div>
+          ))
+        ) : (
+          <div className="text-center py-8 text-gray-500">
+            No recent matches
           </div>
-        ))}
+        )}
       </div>
     </>
   );

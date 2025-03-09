@@ -2,8 +2,6 @@ import { Award, Calendar, Clock, Users } from "lucide-react";
 
 export default function LoggedIn({ localUserProfile }) {
   if (localUserProfile === null) return null;
-  console.log(localUserProfile);
-  // Function to convert seconds to MM:SS format
 
   function formatDate(dateInput) {
     if (!dateInput) return "N/A";
@@ -16,80 +14,73 @@ export default function LoggedIn({ localUserProfile }) {
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
 
-    return `${day}:${month}:${year}`;
+    return `${day}.${month}.${year}`;
   }
+
   return (
     <>
-      <div className="flex items-center gap-4 text-sm sm:text-xl ">
-        <img
-          src={
-            localUserProfile.avatar_url !== ""
-              ? localUserProfile.avatar_url
-              : "NotSetPfp.jpg"
-          }
-          className="h-12   rounded-full"
-        ></img>
-        <span className="text-xl">{localUserProfile.username}</span>
-      </div>
-      <div className="flex items-center text-lg gap-1  sm:gap-4 ">
-        <span className="flex items-center">
-          <span className="mx-2">•</span>
-          <span className="gap-2 flex">
-            {localUserProfile.elo}
-            <span className="text-gray-300">ELO</span>
+      <div className="flex items-center gap-4 mb-4">
+        <div className="h-14 w-14 rounded-full overflow-hidden border-2 border-gray-700 shadow-md">
+          <img
+            src={
+              localUserProfile.avatar_url !== ""
+                ? localUserProfile.avatar_url
+                : "NotSetPfp.jpg"
+            }
+            className="h-full w-full object-cover"
+            alt={localUserProfile.username}
+          />
+        </div>
+        <div>
+          <span className="text-xl font-semibold">
+            {localUserProfile.username}
           </span>
-        </span>
-        <span className="flex items-center">
-          <Award color="gold"></Award>
-          <span>
-            {localUserProfile.rank !== 0 ? (
-              `#${localUserProfile.rank}`
-            ) : (
-              <span className="tracking-widest text-sm text-gray-300">
-                Unranked
-              </span>
+          <div className="flex items-center mt-1">
+            <span className="text-gray-400 text-sm">ELO:</span>
+            <span className="mx-1.5 font-medium">{localUserProfile.elo}</span>
+            {localUserProfile.rank !== 0 && (
+              <>
+                <span className="mx-1 text-gray-500">•</span>
+                <Award size={14} className="text-yellow-500 mr-1" />
+                <span className="font-medium">#{localUserProfile.rank}</span>
+              </>
             )}
-          </span>
-        </span>
+          </div>
+        </div>
       </div>
-      <div className="flex sm:gap-4 sm:items-center ml-4 sm:ml-0 flex-col sm:flex-row gap-2">
-        <div className="flex gap-3 items-center">
-          <span>
-            <Calendar></Calendar>
-          </span>
-          <span className="flex flex-col ">
-            <span className="text-sm text-gray-300 hidden sm:inline-block">
-              Member Since
-            </span>
-            <span>{formatDate(localUserProfile.created_at)}</span>
-          </span>
-        </div>
-        <div className="flex gap-3 items-center">
-          <span>
-            <Clock></Clock>
-          </span>
-          <span className="flex flex-col ">
-            <span className="text-sm text-gray-300 hidden sm:inline-block">
-              Average Playtime
-            </span>
-            <span>
-              {localUserProfile.average_playtime ? (
-                localUserProfile.average_playtime
-              ) : (
-                <span className="text-sm ">no data found</span>
-              )}
-            </span>
-          </span>
-        </div>
-        <div className="flex gap-3 items-center">
-          <span>
-            <Users></Users>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
+        <div className="bg-gray-800/50 rounded-md p-3 flex items-center gap-3">
+          <span className="p-1.5 bg-gray-900 rounded-md">
+            <Calendar size={16} className="text-blue-400" />
           </span>
           <span className="flex flex-col">
-            <span className="text-sm text-gray-300 hidden sm:inline-block">
-              Total Games
+            <span className="text-xs text-gray-400">Member Since</span>
+            <span className="text-sm">
+              {formatDate(localUserProfile.created_at)}
             </span>
-            <span>{localUserProfile.total_games}</span>
+          </span>
+        </div>
+
+        <div className="bg-gray-800/50 rounded-md p-3 flex items-center gap-3">
+          <span className="p-1.5 bg-gray-900 rounded-md">
+            <Clock size={16} className="text-purple-400" />
+          </span>
+          <span className="flex flex-col">
+            <span className="text-xs text-gray-400">Average Playtime</span>
+            <span className="text-sm">
+              {localUserProfile.average_playtime || "No data"}
+            </span>
+          </span>
+        </div>
+
+        <div className="bg-gray-800/50 rounded-md p-3 flex items-center gap-3">
+          <span className="p-1.5 bg-gray-900 rounded-md">
+            <Users size={16} className="text-green-400" />
+          </span>
+          <span className="flex flex-col">
+            <span className="text-xs text-gray-400">Total Games</span>
+            <span className="text-sm">{localUserProfile.total_games || 0}</span>
           </span>
         </div>
       </div>

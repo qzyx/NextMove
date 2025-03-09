@@ -2,44 +2,117 @@ import { TrendingUp } from "lucide-react";
 
 export default function StatisticsLogged({ localUserProfile }) {
   if (localUserProfile === null) return null;
-  const totalGames = localUserProfile.total_games;
-  const wins = localUserProfile.wins;
-  const losses = localUserProfile.losses;
-  const draws = localUserProfile.draws;
-  const winRate = ((wins / totalGames) * 100).toFixed(2);
-  const rounded = Math.round(winRate);
+
+  // Calculate statistics
+  const totalGames =
+    (localUserProfile.wins || 0) +
+    (localUserProfile.losses || 0) +
+    (localUserProfile.draws || 0);
+  const winRate =
+    totalGames > 0
+      ? Math.round(((localUserProfile.wins || 0) / totalGames) * 100)
+      : 0;
+
   return (
     <>
-      <span className="flex gap-2 text-xl items-center">
-        <TrendingUp size={32} />
-        <span>Statistics</span>
-      </span>
-      <div className="flex justify-around text-gray-300 text-lg">
-        <div className="h-16 w-20 sm:h-20 sm:w-30 bg-gray-800 rounded-xl flex flex-col gap-1 items-center">
-          <span>Wins</span>
-          <span className="text-green-500">{wins}</span>
-        </div>
-        <div className="h-16 w-20 sm:h-20 sm:w-30 bg-gray-800 rounded-xl flex flex-col gap-1 items-center">
-          <span>Loses</span>
-          <span className="text-red-500 ">{losses}</span>
-        </div>
-        <div className="h-16 w-20 sm:h-20 sm:w-30 bg-gray-800 rounded-xl flex flex-col gap-1 items-center">
-          <span>Draw</span>
-          <span className="text-yellow-500">{draws}</span>
-        </div>
+      <div className="flex justify-between items-center mb-6">
+        <span className="flex gap-2 items-center">
+          <TrendingUp size={28} className="text-gray-300" />
+          <span className="text-xl font-medium">Your Statistics</span>
+        </span>
+        {localUserProfile.rank && (
+          <span className="text-sm text-gray-300">
+            Rank: {localUserProfile.rank}
+          </span>
+        )}
       </div>
-      <div className="flex gap-2 flex-col">
-        <div className="flex w-full justify-between">
-          <span>Win Rate</span>
-          <span>{winRate}%</span>
+
+      {/* Stats Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <StatCard title="Total Games" value={totalGames} />
+        <StatCard
+          title="Wins"
+          value={localUserProfile.wins || 0}
+          color="text-green-500"
+        />
+        <StatCard
+          title="Losses"
+          value={localUserProfile.losses || 0}
+          color="text-red-500"
+        />
+        <StatCard
+          title="Draws"
+          value={localUserProfile.draws || 0}
+          color="text-yellow-500"
+        />
+      </div>
+
+      {/* Win Rate */}
+      <div className="mb-6">
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm text-gray-400">Win Rate</span>
+          <span className="text-sm font-bold text-white">{winRate}%</span>
         </div>
-        <div className="w-full h-2 relative bg-red-500 rounded-xl">
+        <div className="w-full bg-gray-700 rounded-full h-2.5">
           <div
-            className="absolute top-0 left-0 h-2 bg-green-500 rounded-xl"
-            style={{ width: `${rounded}%` }}
+            className="bg-green-500 h-2.5 rounded-full"
+            style={{ width: `${winRate}%` }}
           ></div>
         </div>
       </div>
+
+      {/* ELO Rating */}
+      <div>
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm text-gray-400">ELO Rating</span>
+          <span className="text-sm font-bold text-white">
+            {localUserProfile.elo || 0}
+          </span>
+        </div>
+        {localUserProfile.eloHistory &&
+          localUserProfile.eloHistory.length > 1 && (
+            <div className="text-xs text-gray-400">
+              {localUserProfile.eloHistory[
+                localUserProfile.eloHistory.length - 1
+              ] >
+              localUserProfile.eloHistory[
+                localUserProfile.eloHistory.length - 2
+              ] ? (
+                <span className="text-green-500">
+                  ↑{" "}
+                  {localUserProfile.eloHistory[
+                    localUserProfile.eloHistory.length - 1
+                  ] -
+                    localUserProfile.eloHistory[
+                      localUserProfile.eloHistory.length - 2
+                    ]}{" "}
+                  from last game
+                </span>
+              ) : (
+                <span className="text-red-500">
+                  ↓{" "}
+                  {localUserProfile.eloHistory[
+                    localUserProfile.eloHistory.length - 2
+                  ] -
+                    localUserProfile.eloHistory[
+                      localUserProfile.eloHistory.length - 1
+                    ]}{" "}
+                  from last game
+                </span>
+              )}
+            </div>
+          )}
+      </div>
     </>
+  );
+}
+
+// Helper component for stat cards
+function StatCard({ title, value, color = "text-white" }) {
+  return (
+    <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
+      <div className="text-xs text-gray-400">{title}</div>
+      <div className={`text-xl font-bold ${color}`}>{value}</div>
+    </div>
   );
 }
