@@ -1,6 +1,6 @@
 import QSection from "./_Components/HomePageComponents/Queue/QSection";
 import RecentMatches from "./_Components/HomePageComponents/RecentMatches/RecentMatches";
-import Statistics from "./_Components/HomePageComponents/Statistics";
+import Statistics from "./_Components/HomePageComponents/Statistics/Statistics";
 import UserLocalProfile from "./_Components/HomePageComponents/UserLocalProfile/UserLocalProfile";
 const localUser = {
   pfp: "https://avatars.githubusercontent.com/u/77445921?v=4",

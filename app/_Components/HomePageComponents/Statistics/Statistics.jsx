@@ -1,16 +1,14 @@
 "use client";
-
 import getLocalUserInfo from "@/app/_lib/actions/user";
-import { useAuth } from "@/app/_lib/authContext/AuthContext";
-import { BookOpen } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
-import RecentMatchesLogged from "./RecentMatchesLogged";
-import RecentMatchesNotLogged from "./RecentMatchesNotLogged";
+import StatisticsNotLogged from "./StatisticsNotLogged";
+import StatisticsLogged from "./StatisticsLogged";
+import { useAuth } from "@/app/_lib/authContext/AuthContext";
 import PageLoadingSpinner from "../../UI/PageLoadingSpinner";
 
-function RecentMatches() {
+function Statistics() {
   const { user } = useAuth();
-  // Get only the last 4 matches
   const [localUserProfile, setLocalUserProfile] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -31,32 +29,23 @@ function RecentMatches() {
       fetchData();
     }
   }, [user]);
-  const lastFourMatches = [
-    {
-      opponent: "jano",
-      result: "win",
-      eloChange: 15,
-      gameLength: 100,
-      date: "2021-10-10",
-    },
-  ];
 
   return (
     <div
       className="bg-gradient-to-b from-gray-900/60 to-gray-800 p-6 rounded-lg border border-gray-700 
-        shadow-xl transition-colors col-span-1 lg:col-span-3 h-75  flex flex-col gap-4"
+  shadow-xl transition-colors col-span-1 lg:col-span-3 h-75 flex flex-col gap-10  "
     >
       {user ? (
         loading ? (
           <PageLoadingSpinner size={"lg"} />
         ) : (
-          <RecentMatchesLogged localUserProfile={localUserProfile} />
+          <StatisticsLogged localUserProfile={localUserProfile} />
         )
       ) : (
-        <RecentMatchesNotLogged />
+        <StatisticsNotLogged />
       )}
     </div>
   );
 }
 
-export default RecentMatches;
+export default Statistics;

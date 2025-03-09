@@ -1,6 +1,9 @@
 import { BookOpen } from "lucide-react";
 
-export default function RecentMatchesLogged({ lastFourMatches }) {
+export default function RecentMatchesLogged({ localUserProfile }) {
+  if (localUserProfile === null) return null;
+
+  const lastFourMatches = localUserProfile.recent_matches.slice(0, 4);
   const formatPlaytime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
