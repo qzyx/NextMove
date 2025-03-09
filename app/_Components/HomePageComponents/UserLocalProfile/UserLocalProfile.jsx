@@ -32,8 +32,8 @@ function UserLocalProfile() {
 
   return (
     <div
-      className="bg-gradient-to-b from-gray-900/60 to-gray-800 p-6 rounded-lg border border-gray-700 
-  shadow-xl transition-colors col-span-1 lg:col-span-4 h-55 flex flex-col gap-4 justify-around"
+      className="bg-gradient-to-b from-gray-900/60 to-gray-800 p-4 sm:p-6 rounded-lg border border-gray-700 
+  shadow-xl transition-colors col-span-1 lg:col-span-4 min-h-55 sm:h-55 flex flex-col gap-4 sm:gap-8"
     >
       {user ? (
         loading ? (

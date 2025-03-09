@@ -20,26 +20,28 @@ export default function LoggedIn({ localUserProfile }) {
   }
   return (
     <>
-      <div className="flex items-center gap-1 sm:gap-4 text-sm sm:text-xl ">
+      <div className="flex items-center gap-4 text-sm sm:text-xl ">
         <img
           src={
             localUserProfile.avatar_url !== ""
               ? localUserProfile.avatar_url
               : "NotSetPfp.jpg"
           }
-          className="sm:h-12 h-8  rounded-full"
+          className="h-12   rounded-full"
         ></img>
-        <span className="">{localUserProfile.username}</span>
+        <span className="text-xl">{localUserProfile.username}</span>
       </div>
       <div className="flex items-center text-lg gap-1  sm:gap-4 ">
-        <span>
+        <span className="flex items-center">
           <span className="mx-2">•</span>
-          <span>{localUserProfile.elo} ELO</span>
+          <span className="gap-2 flex">
+            {localUserProfile.elo}
+            <span className="text-gray-300">ELO</span>
+          </span>
         </span>
-        <span className="flex">
-          <Award></Award>
+        <span className="flex items-center">
+          <Award color="gold"></Award>
           <span>
-            Rank:
             {localUserProfile.rank !== 0 ? (
               `#${localUserProfile.rank}`
             ) : (
@@ -50,7 +52,7 @@ export default function LoggedIn({ localUserProfile }) {
           </span>
         </span>
       </div>
-      <div className="flex sm:gap-4 items-center ">
+      <div className="flex sm:gap-4 sm:items-center ml-4 sm:ml-0 flex-col sm:flex-row gap-2">
         <div className="flex gap-3 items-center">
           <span>
             <Calendar></Calendar>
