@@ -36,15 +36,15 @@ function Statistics() {
   }, [user]);
 
   return (
-    <div className="bg-gradient-to-b from-gray-900/60 to-gray-800 p-6 rounded-lg border border-gray-700 shadow-xl transition-colors col-span-1 lg:col-span-3 min-h-75 md:h-75 flex flex-col">
+    <div className="bg-gradient-to-b from-gray-900/60 to-gray-800 p-6 rounded-lg border border-gray-700 shadow-xl transition-colors col-span-1 lg:col-span-3 min-h-75  flex flex-col">
       {user ? (
         loading ? (
-          <div className="h-full flex items-center justify-center">
+          <div className="flex-1 flex items-center justify-center max-h-[350px]">
             <PageLoadingSpinner size={"lg"} />
           </div>
         ) : error ? (
-          <div className="h-full flex items-center justify-center text-red-500">
-            {error}
+          <div className="flex-1 flex items-center justify-center max-h-[350px]">
+            <span className="text-red-500">{error}</span>
           </div>
         ) : (
           <StatisticsLogged localUserProfile={localUserProfile} />

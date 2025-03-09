@@ -7,7 +7,7 @@ export default function PageLoadingSpinner({ size = "md" }) {
   };
 
   return (
-    <main className="h-screen w-full flex items-center justify-center">
+    <main className="h-full w-full flex items-center justify-center">
       <div
         className={`bg-transparent border-t-2 animate-spin rounded-full ${
           sizeClasses[size] || sizeClasses.md
