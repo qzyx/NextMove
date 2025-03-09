@@ -2,7 +2,8 @@
 
 import { ChevronDown, ChevronUp, Info, Mail } from "lucide-react";
 import { useState } from "react";
-import { HeaderButton } from "../UI/Header";
+
+import { Button } from "../UI/Button";
 
 function Menu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,15 +22,15 @@ function Menu() {
 
       {isOpen && (
         <div className="dropDown-menu  text-black font-bold flex flex-col gap-2 p-2 absolute w-40  border-[1px]  bg-black rounded right-2">
-          <HeaderButton icon={Info} href="/about">
+          <Button icon={Info} href="/about">
             About
-          </HeaderButton>
-          <HeaderButton icon={Mail} href="/contact">
+          </Button>
+          <Button icon={Mail} href="/contact">
             Contact
-          </HeaderButton>
-          <HeaderButton icon={Mail} href="/logout">
+          </Button>
+          <Button icon={Mail} href="/logout">
             Log Out
-          </HeaderButton>
+          </Button>
         </div>
       )}
     </div>

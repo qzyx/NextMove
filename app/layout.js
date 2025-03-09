@@ -43,13 +43,12 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <SpaceScene></SpaceScene>
-        <Suspense fallback={<PageLoadingSpinner></PageLoadingSpinner>}>
-          <AuthProvider>
-            <Header></Header>
 
-            {children}
-          </AuthProvider>
-        </Suspense>
+        <AuthProvider>
+          <Header></Header>
+
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

@@ -1,14 +1,14 @@
 import { TrendingUp } from "lucide-react";
 
-function Statistics({ localUser }) {
-  const winRate = ((localUser.wins / localUser.totalGames) * 100).toFixed(2);
-  const rounded = Math.round(winRate);
+function Statistics() {
+  // const winRate = ((localUser.wins / localUser.totalGames) * 100).toFixed(2);
+  // const rounded = Math.round(winRate);
   return (
     <div
       className="bg-gradient-to-b from-gray-900/60 to-gray-800 p-6 rounded-lg border border-gray-700 
   shadow-xl transition-colors col-span-1 lg:col-span-3 h-75 flex flex-col gap-6"
     >
-      <span className="flex gap-2 text-xl items-center">
+      {/* <span className="flex gap-2 text-xl items-center">
         <TrendingUp size={32} />
         <span>Statistics</span>
       </span>
@@ -37,7 +37,7 @@ function Statistics({ localUser }) {
             style={{ width: `${rounded}%` }}
           ></div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

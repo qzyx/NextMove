@@ -1,22 +1,23 @@
 import { BookOpen } from "lucide-react";
 
-function RecentMatches({ recentMatches }) {
-  // Get only the last 4 matches
-  const lastFourMatches = recentMatches.slice(0, 4);
-
+export default function RecentMatchesLogged({ lastFourMatches }) {
+  const formatPlaytime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
   return (
-    <div
-      className="bg-gradient-to-b from-gray-900/60 to-gray-800 p-6 rounded-lg border border-gray-700 
-        shadow-xl transition-colors col-span-1 lg:col-span-3 h-75  flex flex-col gap-4"
-    >
+    <>
       <span className="flex gap-2 text-xl items-center">
         <BookOpen size={32} />
         <span>Recent Matches</span>
       </span>
 
       {/* Headers */}
-      <div className="grid grid-cols-4 sm:grid-cols-5 text-gray-300 text-xs sm:text-sm md:text-base font-semibold border-b pb-2 text-center">
-        <span>Opponent</span>
+      <div className="grid grid-cols-4  sm:grid-cols-5 text-gray-300 text-xs sm:text-sm  font-semibold border-b pb-2 text-center">
+        <span className="">Opponent</span>
         <span>Result</span>
         <span>Elo Change</span>
         <span>Game Length</span>
@@ -42,14 +43,23 @@ function RecentMatches({ recentMatches }) {
             >
               {match.result}
             </span>
-            <span>{match.eloChange}</span>
-            <span>{match.gameLength}</span>
+            <span
+              className={
+                match.eloChange > 0
+                  ? "text-green-500"
+                  : match.eloChange < 0
+                  ? "text-red-500"
+                  : "text-yellow-500"
+              }
+            >
+              {match.eloChange > 0 ? `+${match.eloChange}` : match.eloChange}
+            </span>
+
+            <span>{formatPlaytime(match.gameLength)}</span>
             <span className="hidden sm:block">{match.date}</span>
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
-
-export default RecentMatches;
