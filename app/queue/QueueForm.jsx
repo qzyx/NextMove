@@ -9,7 +9,7 @@ import StopQueueButton from "./StopQueueButton";
 export default function QueueForm({ localUserProfile }) {
   if (!localUserProfile) return null;
   return (
-    <div className="bg-gradient-to-b from-gray-900/80 to-gray-800 p-8 rounded-xl border border-gray-700 shadow-lg flex flex-col items-center gap-8 w-full max-w-md">
+    <div className="bg-gradient-to-b mx-2 sm:mx-0 w-full from-gray-900/80 to-gray-800 p-8 rounded-xl border border-gray-700 shadow-lg flex flex-col items-center gap-8 w-full max-w-md">
       <div className="relative">
         <LoadingSpinner size={70} borderWidth={4} />
         <div className="absolute inset-0 flex items-center justify-center">
