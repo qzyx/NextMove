@@ -1,13 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import LoadingSpinner from "../_Components/UI/LoadingSpinner";
-import StopQueueButton from "./StopQueueButton";
-import QueueForm from "./QueueForm";
 import { useEffect, useState } from "react";
-import { useAuth } from "../_lib/authContext/AuthContext";
-import { getLocalUserInfo } from "../_lib/actions/user";
 import PageLoadingSpinner from "../_Components/UI/PageLoadingSpinner";
+import { changeUserStatus, getLocalUserInfo } from "../_lib/actions/user";
+import { useAuth } from "../_lib/authContext/AuthContext";
+import QueueForm from "./QueueForm";
 
 function page() {
   const [localUserProfile, setLocalUserProfile] = useState(null);

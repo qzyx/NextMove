@@ -6,6 +6,7 @@ import SpaceScene from "./_Components/SpaceTheme/SpaceTheme";
 import { AuthProvider } from "./_lib/authContext/AuthContext";
 import LoadingSpinner from "./_Components/UI/LoadingSpinner";
 import PageLoadingSpinner from "./_Components/UI/PageLoadingSpinner";
+import { QueueProvider } from "./_lib/QueueContext/QueueContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,9 +46,11 @@ export default function RootLayout({ children }) {
         <SpaceScene></SpaceScene>
 
         <AuthProvider>
-          <Header></Header>
+          <QueueProvider>
+            <Header></Header>
 
-          {children}
+            {children}
+          </QueueProvider>
         </AuthProvider>
       </body>
     </html>
