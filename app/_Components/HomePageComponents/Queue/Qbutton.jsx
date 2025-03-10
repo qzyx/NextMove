@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
 import { useAuth } from "@/app/_lib/authContext/AuthContext";
 import { PlayIcon } from "lucide-react";
 import Link from "next/link";
 
 function Qbutton() {
-  const {user} = useAuth();
+  const { user } = useAuth();
   return (
     <Link href={user ? "/queue" : "/login"} className="h-full w-full p-4">
       <button
@@ -29,7 +29,7 @@ function Qbutton() {
         <div className="flex items-center gap-2 relative justify-center z-10">
           {/* Text shadow for better readability */}
           <span className="transition-transform duration-300 group-hover:translate-x-[-15px] tracking-wider text-shadow-sm">
-            {user ? "Join Queue" : "Login to Play"}    
+            {user ? "Join Queue" : "Login to Play"}
           </span>
           <span
             className="absolute -right-9 opacity-0 translate-x-[-15px] transition-all duration-300 

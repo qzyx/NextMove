@@ -10,6 +10,9 @@ function QSection() {
         <h2 className="text-xl font-medium mb-4 text-center text-gray-200">
           Find Match
         </h2>
+        <p className="text-gray-400 text-center">
+          Face players from around the world!
+        </p>
         <Qbutton />
       </div>
     </div>

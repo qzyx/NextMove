@@ -5,6 +5,7 @@ import PageLoadingSpinner from "../_Components/UI/PageLoadingSpinner";
 import { changeUserStatus, getLocalUserInfo } from "../_lib/actions/user";
 import { useAuth } from "../_lib/authContext/AuthContext";
 import QueueForm from "./QueueForm";
+import { findMatch } from "../_lib/actions/game";
 
 function page() {
   const [localUserProfile, setLocalUserProfile] = useState(null);
@@ -18,6 +19,7 @@ function page() {
         setError(null);
         const profileData = await getLocalUserInfo(user);
         setLocalUserProfile(profileData);
+        await findMatch(user.id);
       } catch (error) {
         console.error("Error fetching user profile:", error);
         setError("Failed to load statistics");

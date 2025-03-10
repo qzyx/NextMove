@@ -15,8 +15,6 @@ export function QueueProvider({ children }) {
   // Update user status based on page route
   useEffect(() => {
     const updateStatus = async (newStatus) => {
-  
-
       try {
         // Update status in your database
         await supabase
@@ -33,6 +31,8 @@ export function QueueProvider({ children }) {
     // Set status based on current route
     if (pathname === "/queue") {
       updateStatus("queuing");
+    } else if (pathname === "/game") {
+      updateStatus("in_game");
     } else {
       updateStatus("idle");
     }
@@ -43,7 +43,43 @@ export function QueueProvider({ children }) {
         updateStatus("idle"); // Ensure user isn't left in queue
       }
     };
-  }, [pathname]);
+  }, [pathname, user]);
+
+  // Update last_online timestamp every 30 seconds
+  useEffect(() => {
+    let intervalId;
+
+    const updateLastOnline = async () => {
+      if (!user?.id) return;
+
+      try {
+        const now = new Date().toISOString();
+        await supabase
+          .from("profiles")
+          .update({ last_online: now })
+          .eq("id", user.id);
+
+        console.log("Updated last_online timestamp:", now);
+      } catch (error) {
+        console.error("Error updating last_online timestamp:", error);
+      }
+    };
+
+    // Update immediately when component mounts
+    if (user?.id) {
+      updateLastOnline();
+    }
+
+    // Set up interval for updating every 30 seconds
+    intervalId = setInterval(updateLastOnline, 30000);
+
+    // Clear interval when component unmounts
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [user]);
 
   // Additional methods for manually changing status
   const setUserStatus = async (newStatus) => {
