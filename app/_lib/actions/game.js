@@ -18,7 +18,7 @@ export async function findMatch(userId) {
     const userX = isUserX ? userId : opponent.id;
     const userO = isUserX ? opponent.id : userId;
 
-    const { data: game, error: gameError } = await supabase
+    const { data, error: gameError } = await supabase
       .from("games")
       .insert({
         user_x: userX,
@@ -27,7 +27,18 @@ export async function findMatch(userId) {
         board: Array(9).fill(""),
       })
       .select();
-
     if (gameError) console.error("Error creating game:", gameError);
+    const game = data[0];
+    return game;
   }
+}
+
+export async function getGame(gameId) {
+  const { data, error } = await supabase
+    .from("games")
+    .select("*")
+    .eq("id", gameId)
+    .single();
+  if (error) console.error("Error getting game:", error);
+  return data;
 }

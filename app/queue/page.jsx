@@ -6,8 +6,10 @@ import { changeUserStatus, getLocalUserInfo } from "../_lib/actions/user";
 import { useAuth } from "../_lib/authContext/AuthContext";
 import QueueForm from "./QueueForm";
 import { findMatch } from "../_lib/actions/game";
+import { useRouter } from "next/navigation";
 
 function page() {
+  const router = useRouter();
   const [localUserProfile, setLocalUserProfile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -19,7 +21,13 @@ function page() {
         setError(null);
         const profileData = await getLocalUserInfo(user);
         setLocalUserProfile(profileData);
-        await findMatch(user.id);
+        const game = await findMatch(user.id);
+        console.log("game", game);
+        if (game) {
+          setTimeout(() => {
+            router.push(`/game/${game.id}`);
+          }, 2000);
+        }
       } catch (error) {
         console.error("Error fetching user profile:", error);
         setError("Failed to load statistics");
