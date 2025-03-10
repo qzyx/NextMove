@@ -1,6 +1,6 @@
 import { supabase } from "../supabase";
 
-export default async function getLocalUserInfo(user) {
+export async function getLocalUserInfo(user) {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
@@ -9,4 +9,11 @@ export default async function getLocalUserInfo(user) {
 
   if (error) console.error("Error getting user profile:", error);
   return data;
+}
+export async function changeUserStatus(userId, status) {
+  const { error } = await supabase
+    .from("profiles")
+    .update({ status })
+    .eq("id", userId);
+  if (error) console.error("Error updating user status:", error);
 }

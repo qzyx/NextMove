@@ -3,7 +3,7 @@ import { useAuth } from "@/app/_lib/authContext/AuthContext";
 import LoggedIn from "./UserLocalProfileLogged";
 import NotLoggedIn from "./UserLocalProfileNotLogged";
 import { useEffect, useState } from "react";
-import getLocalUserInfo from "@/app/_lib/actions/user";
+import { getLocalUserInfo } from "@/app/_lib/actions/user";
 import LoadingSpinner from "../../UI/LoadingSpinner";
 import PageLoadingSpinner from "../../UI/PageLoadingSpinner";
 
@@ -27,6 +27,7 @@ function UserLocalProfile() {
 
     if (user) {
       fetchData();
+      console.log("Fetching user local profile data");
     }
   }, [user]);
 

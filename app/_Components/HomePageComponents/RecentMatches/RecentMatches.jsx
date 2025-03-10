@@ -1,6 +1,6 @@
 "use client";
 
-import getLocalUserInfo from "@/app/_lib/actions/user";
+import { getLocalUserInfo } from "@/app/_lib/actions/user";
 import { useAuth } from "@/app/_lib/authContext/AuthContext";
 import { BookOpen } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -29,6 +29,7 @@ function RecentMatches() {
 
     if (user) {
       fetchData();
+      console.log("Fetching recent matches data");
     }
   }, [user]);
   const lastFourMatches = [

@@ -1,5 +1,5 @@
 "use client";
-import getLocalUserInfo from "@/app/_lib/actions/user";
+import { getLocalUserInfo } from "@/app/_lib/actions/user";
 import { useEffect, useState } from "react";
 import StatisticsNotLogged from "./StatisticsNotLogged";
 import StatisticsLogged from "./StatisticsLogged";
@@ -29,6 +29,7 @@ function Statistics() {
 
     if (user) {
       fetchData();
+      console.log("Fetching user statistics data");
     } else {
       setLocalUserProfile(null);
       setLoading(false);

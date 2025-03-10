@@ -10,6 +10,7 @@ import { Button } from "./Button";
 
 function Header() {
   const { user } = useAuth();
+  
 
   return (
     <div className="fixed bg-black/70 z-10 flex p-3 justify-between w-full md:justify-start items-center  gap-2 sm:gap-4 md:gap-6 xl:gap-10">
@@ -17,10 +18,15 @@ function Header() {
         NextMove
       </Link>
       <div className="flex items-center gap-4 justify-between grow">
-        <span className="flex gap-2 text-sm">
-          <span>Logged in as</span>
-          <span className="font-bold">Qwyxo</span>
-        </span>
+        {user ? (
+          <span className="flex gap-2 text-sm">
+            <span>Logged in as</span>
+            <span className="font-bold">{user.user_metadata.username}</span>
+          </span>
+        ) : (
+          <span></span>
+        )}
+
         <span className="block md:hidden">
           <Menu></Menu>
         </span>
