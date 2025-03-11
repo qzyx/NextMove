@@ -10,11 +10,13 @@ import { Button } from "./Button";
 
 function Header() {
   const { user } = useAuth();
-  
 
   return (
     <div className="fixed bg-black/70 z-10 flex p-3 justify-between w-full md:justify-start items-center  gap-2 sm:gap-4 md:gap-6 xl:gap-10">
-      <Link href={"/"} className="text-xl font-bold sm:text-2xl top-2 left-2">
+      <Link
+        href={"/"}
+        className="text-xl bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500  font-bold sm:text-2xl top-2 left-2"
+      >
         NextMove
       </Link>
       <div className="flex items-center gap-4 justify-between grow">
