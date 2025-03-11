@@ -29,7 +29,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="container mx-auto px-4 py-8 md:py-12 max-w-5xl text-gray-200">
+    <main className="container mx-auto mt-10 px-4 py-8 md:py-12 max-w-5xl text-gray-200">
       {/* Hero section - improved for mobile */}
       <section className="mb-10 md:mb-16 text-center">
         <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
