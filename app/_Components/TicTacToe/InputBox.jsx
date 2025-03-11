@@ -1,9 +1,19 @@
-function InputBox({ children }) {
+export default function InputBox({ handleMove, value, disabled }) {
   return (
-    <div className="cell w-24 h-24 bg-gradient-to-br border-[1px] rounded-md   flex items-center justify-center text-4xl font-bold bg-black/70 ">
-      {children}
-    </div>
+    <button
+      onClick={handleMove}
+      disabled={disabled || value !== ""}
+      className={`w-24 h-24 md:w-28 md:h-28 bg-gray-800/60 hover:bg-gray-700/60 border border-gray-700/50 rounded-lg text-4xl md:text-5xl font-bold flex items-center justify-center transition-colors
+        ${
+          value === "X"
+            ? "text-blue-400"
+            : value === "O"
+            ? "text-purple-400"
+            : "text-transparent"
+        }
+        ${disabled ? "cursor-not-allowed opacity-80" : "cursor-pointer"}`}
+    >
+      {value}
+    </button>
   );
 }
-
-export default InputBox;
