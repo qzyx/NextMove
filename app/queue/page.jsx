@@ -8,7 +8,7 @@ import QueueForm from "./QueueForm";
 import { findMatch } from "../_lib/actions/game";
 import { useRouter } from "next/navigation";
 import { supabase } from "../_lib/supabase";
-import useRealtimeSubscription from "../_lib/hooks/useRealtimeSubsription";
+import useRealtimeSubscription from "../_lib/hooks/useRealtimeSubscription";
 
 function Page() {
   const router = useRouter();
