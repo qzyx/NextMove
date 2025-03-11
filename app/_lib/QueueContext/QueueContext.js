@@ -40,7 +40,11 @@ export function QueueProvider({ children }) {
     // Clean up when component unmounts
     return () => {
       if (pathname === "/queue") {
-        updateStatus("idle"); // Ensure user isn't left in queue
+        updateStatus("queuing");
+      } else if (pathname === "/game") {
+        updateStatus("in_game");
+      } else {
+        updateStatus("idle");
       }
     };
   }, [pathname, user]);
