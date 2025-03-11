@@ -49,9 +49,11 @@ function page() {
   useEffect(() => {
     if (!user) return;
 
-    // Set up real-time listener for new games
+    console.log("Setting up realtime listener for user:", user.id);
+
+    // Use a non-reserved channel name
     const gameSubscription = supabase
-      .channel("public:games")
+      .channel("games_listener_" + user.id) // Use unique name per user
       .on(
         "postgres_changes",
         {
@@ -71,11 +73,21 @@ function page() {
           filter: `user_o=eq.${user.id}`,
         },
         handleNewGame
-      )
-      .subscribe();
+      );
+
+    // Subscribe with status callback for debugging
+    gameSubscription.subscribe((status) => {
+      console.log("Subscription status:", status);
+      if (status === "SUBSCRIBED") {
+        console.log("Successfully subscribed to games table");
+      } else if (status === "CLOSED" || status === "CHANNEL_ERROR") {
+        console.error("Subscription error:", status);
+      }
+    });
 
     // Clean up subscription
     return () => {
+      console.log("Cleaning up subscription");
       gameSubscription.unsubscribe();
     };
   }, [user, router]);
