@@ -16,6 +16,8 @@ export function QueueProvider({ children }) {
   useEffect(() => {
     const updateStatus = async (newStatus) => {
       try {
+        if (!user?.id) return;
+
         // Update status in your database
         await supabase
           .from("profiles")
@@ -31,22 +33,11 @@ export function QueueProvider({ children }) {
     // Set status based on current route
     if (pathname === "/queue") {
       updateStatus("queuing");
-    } else if (pathname === "/game") {
+    } else if (pathname.startsWith("/game")) {
       updateStatus("in_game");
     } else {
       updateStatus("idle");
     }
-
-    // Clean up when component unmounts
-    return () => {
-      if (pathname === "/queue") {
-        updateStatus("queuing");
-      } else if (pathname === "/game") {
-        updateStatus("in_game");
-      } else {
-        updateStatus("idle");
-      }
-    };
   }, [pathname, user]);
 
   // Update last_online timestamp every 30 seconds
@@ -94,7 +85,9 @@ export function QueueProvider({ children }) {
   };
 
   return (
-    <QueueContext.Provider value={{ status, setUserStatus }}>
+    <QueueContext.Provider
+      value={{ status, setUserStatus: (newStatus) => setStatus(newStatus) }}
+    >
       {children}
     </QueueContext.Provider>
   );
