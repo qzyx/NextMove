@@ -11,12 +11,6 @@ if (!supabaseUrl || !supabaseKey) {
 }
 
 export const supabase = createClient(supabaseUrl, supabaseKey, {
-  realtime: {
-    params: {
-      eventsPerSecond: 10,
-    },
-    timeout: 60000, // Increase timeout to 60 seconds
-  },
   auth: {
     persistSession: true,
     autoRefreshToken: true,
