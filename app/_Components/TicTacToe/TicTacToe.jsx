@@ -5,6 +5,7 @@ import InputBox from "./InputBox";
 import { supabase } from "@/app/_lib/supabase";
 import { useAuth } from "@/app/_lib/authContext/AuthContext";
 import { useRouter } from "next/navigation";
+import { updateUsersData } from "@/app/_lib/actions/user";
 
 export default function TicTacToe({ game, userX, userO }) {
   const router = useRouter();
@@ -15,6 +16,7 @@ export default function TicTacToe({ game, userX, userO }) {
   const [isGameOver, setIsGameOver] = useState(
     !!game.winner || isBoardFull(game.board)
   );
+
   const [gameState, setGameState] = useState(game);
 
   // Define symbols for players
@@ -77,6 +79,12 @@ export default function TicTacToe({ game, userX, userO }) {
 
       if (gameWinner) {
         setWinner(gameWinner === "X" ? "user_x" : "user_o");
+        updateUsersData(winner === "user_x" ? userX.id : userO.id, 0, "win", {
+          opponent:
+            getWinnerName(winner) === userX.username
+              ? userX.username
+              : userO.username,
+        });
       } else if (!gameIsOver) {
         setCurrentPlayer(nextPlayer);
       }
@@ -158,8 +166,8 @@ export default function TicTacToe({ game, userX, userO }) {
   function getPlayerName(playerType) {
     return playerType === "user_x" ? userX?.username : userO?.username;
   }
-  function getWinnerName(playerType) {
-    return playerType === userX.id ? userX?.username : userO?.username;
+  function getWinnerName(playerId) {
+    return playerId === userX.id ? userX?.username : userO?.username;
   }
 
   // Forfeit game
@@ -173,6 +181,8 @@ export default function TicTacToe({ game, userX, userO }) {
           status: "finished",
         })
         .eq("id", game.id);
+      console.log(user.id, 0, "loss", { opponent: getWinnerName(winner) });
+      updateUsersData(user.id, 0, "loss", { opponent: getWinnerName(winner) });
     }
     if (isGameOver) {
       router.push("/");
