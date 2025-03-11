@@ -16,13 +16,19 @@ function Page() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { user } = useAuth();
+  const [message, setMessage] = useState(false);
 
   // Handle game found callback
   const handleGameFound = useCallback(
-    (game) => {
+    (game, message) => {
+      if (message) {
+        setMessage(message);
+      }
       console.log("Game found, redirecting:", game);
       if (game?.id) {
-        router.push(`/game/${game.id}`);
+        message
+          ? setTimeout(() => router.push(`/game/${game.id}`), 2000)
+          : router.push(`/game/${game.id}`);
       }
     },
     [router]
@@ -88,10 +94,7 @@ function Page() {
         <PageLoadingSpinner size={"lg"} />
       ) : (
         <>
-          <QueueForm
-            localUserProfile={localUserProfile}
-            subscriptionStatus={status}
-          />
+          <QueueForm message={message} localUserProfile={localUserProfile} />
           {error && <p className="text-red-500 mt-4">{error}</p>}
         </>
       )}

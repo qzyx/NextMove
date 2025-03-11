@@ -1,15 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import LoadingSpinner from "../_Components/UI/LoadingSpinner";
-import { getLocalUserInfo } from "../_lib/actions/user";
-import { useAuth } from "../_lib/authContext/AuthContext";
 import StopQueueButton from "./StopQueueButton";
 
-export default function QueueForm({ localUserProfile }) {
+export default function QueueForm({ localUserProfile, message }) {
   if (!localUserProfile) return null;
+  console.log(message);
   return (
-    <div className="bg-gradient-to-b mx-2 sm:mx-0 w-full from-gray-900/80 to-gray-800 p-8 rounded-xl border border-gray-700 shadow-lg flex flex-col items-center gap-8 w-full max-w-md">
+    <div className="bg-gradient-to-b mx-2 sm:mx-0 w-full from-gray-900/80 to-gray-800 p-8 rounded-xl border border-gray-700 shadow-lg flex flex-col items-center gap-8 max-w-md">
+      {message && <span>{message}</span>}
       <div className="relative">
         <LoadingSpinner size={70} borderWidth={4} />
         <div className="absolute inset-0 flex items-center justify-center">

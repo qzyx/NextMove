@@ -73,14 +73,14 @@ export default function useRealtimeSubscription(userId, onGameFound) {
       // Also implement polling as a fallback
       const pollInterval = setInterval(async () => {
         if (!isMounted) return;
-
+        console.log("UserId", userId);
         try {
           console.log("Polling for new games...");
           const { data } = await supabase
             .from("games")
             .select("*")
             .or(`user_x.eq.${userId},user_o.eq.${userId}`)
-            .order("created_at", { ascending: false })
+            .order("started_at", { ascending: false })
             .limit(1);
 
           if (data && data.length > 0) {
@@ -91,7 +91,8 @@ export default function useRealtimeSubscription(userId, onGameFound) {
 
             if (timeSinceCreation < 30) {
               console.log("Found new game via polling:", game);
-              onGameFound(game);
+              const message = `Found recent game (${timeSinceCreation}s)`;
+              onGameFound(game, message);
             }
           }
         } catch (pollError) {
