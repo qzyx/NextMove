@@ -1,14 +1,10 @@
 "use client";
+import { getLocalUserInfo } from "@/app/_lib/actions/user";
 import { useAuth } from "@/app/_lib/authContext/AuthContext";
+import { useEffect, useState } from "react";
+import PageLoadingSpinner from "../../UI/PageLoadingSpinner";
 import LoggedIn from "./UserLocalProfileLogged";
 import NotLoggedIn from "./UserLocalProfileNotLogged";
-import { useEffect, useState } from "react";
-import {
-  getLocalUserInfo,
-  getUserAveragePlaytime,
-} from "@/app/_lib/actions/user";
-import LoadingSpinner from "../../UI/LoadingSpinner";
-import PageLoadingSpinner from "../../UI/PageLoadingSpinner";
 
 function UserLocalProfile() {
   const { user } = useAuth();

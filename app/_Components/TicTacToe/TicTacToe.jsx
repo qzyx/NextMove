@@ -259,16 +259,34 @@ export default function TicTacToe({ game, userX, userO }) {
         })
         .eq("id", game.id);
 
-      updateUsersData(user.id, -10, "loss", {
-        opponent: getWinnerName(winner),
-      });
-      updateUsersData(winner === userX.id ? userX.id : userO.id, 10, "win", {
-        opponent:
-          getPlayerName(winner === userX.id ? "user_x" : "user_o") ===
-          userX.username
-            ? userO.username
-            : userX.username,
-      });
+      updateUsersData(
+        user.id,
+        calculateElo(
+          gameWinner === "X" ? userO.elo : userX.elo,
+          gameWinner === "X" ? userX.elo : userO.elo,
+          0
+        ),
+        "loss",
+        {
+          opponent: getWinnerName(winner),
+        }
+      );
+      updateUsersData(
+        winner === userX.id ? userX.id : userO.id,
+        calculateElo(
+          gameWinner === "X" ? userO.elo : userX.elo,
+          gameWinner === "X" ? userX.elo : userO.elo,
+          1
+        ),
+        "win",
+        {
+          opponent:
+            getPlayerName(winner === userX.id ? "user_x" : "user_o") ===
+            userX.username
+              ? userO.username
+              : userX.username,
+        }
+      );
     }
     if (isGameOver) {
       router.push("/");
@@ -328,7 +346,7 @@ export default function TicTacToe({ game, userX, userO }) {
           )}
         </div>
       </div>
-      {isMyTurn && (
+      {isMyTurn && !isGameOver && (
         <span className="mb-4">
           <span
             className={`${timer < 10 && "text-red-500"} text-green-500 text-lg`}
