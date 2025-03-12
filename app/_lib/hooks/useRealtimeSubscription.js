@@ -80,6 +80,7 @@ export default function useRealtimeSubscription(userId, onGameFound) {
             .from("games")
             .select("*")
             .or(`user_x.eq.${userId},user_o.eq.${userId}`)
+            .eq("status", "in_process")
             .order("started_at", { ascending: false })
             .limit(1);
 
