@@ -53,25 +53,27 @@ export default function RecentMatchesLogged({ localUserProfile }) {
                     : match.result === "loss"
                     ? "text-red-400 font-medium"
                     : "text-yellow-400 font-medium"
-                }`}
+                } text-center`}
               >
                 {match.result}
               </span>
               <span
-                className={`font-medium ${
-                  match.eloChange > 0
+                className={`text-center font-medium ${
+                  match.elo_change > 0
                     ? "text-green-500"
-                    : match.eloChange < 0
+                    : match.elo_change < 0
                     ? "text-red-500"
                     : "text-yellow-500"
                 }`}
               >
-                {match.eloChange > 0 ? `+${match.eloChange}` : match.eloChange}
+                {match.elo_change > 0
+                  ? `+${match.elo_change}`
+                  : match.elo_change}
               </span>
-              <span className="text-gray-300 font-mono text-xs">
+              <span className="text-gray-300 text-center font-mono text-xs">
                 {formatPlaytime(match.gameLength)}
               </span>
-              <span className="hidden sm:block text-gray-500 text-xs">
+              <span className="hidden sm:block text-gray-500 text-center text-xs">
                 {match.date}
               </span>
             </div>

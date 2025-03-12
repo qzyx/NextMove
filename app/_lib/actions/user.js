@@ -37,9 +37,9 @@ export async function updateUsersData(userId, eloChange, action, matchInfo) {
     .update({
       elo:
         action === "win"
-          ? elo + eloChange + 10
+          ? elo + eloChange
           : action === "loss"
-          ? elo + eloChange - 10
+          ? elo + eloChange
           : elo + eloChange,
       wins: action === "win" ? wins + 1 : wins,
       losses: action === "loss" ? losses + 1 : losses,

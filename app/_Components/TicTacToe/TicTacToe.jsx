@@ -79,9 +79,17 @@ export default function TicTacToe({ game, userX, userO }) {
 
       if (gameWinner) {
         setWinner(gameWinner === "X" ? "user_x" : "user_o");
-        updateUsersData(winner === "user_x" ? userX.id : userO.id, 0, "win", {
+        updateUsersData(gameWinner === "X" ? userX.id : userO.id, 10, "win", {
           opponent:
-            getWinnerName(winner) === userX.username
+            getPlayerName(gameWinner === "X" ? "user_x" : "user_o") ===
+            userX.username
+              ? userO.username
+              : userX.username,
+        });
+        updateUsersData(gameWinner === "X" ? userO.id : userX.id, -10, "loss", {
+          opponent:
+            getPlayerName(gameWinner === "X" ? "user_x" : "user_o") ===
+            userX.username
               ? userX.username
               : userO.username,
         });
@@ -181,8 +189,17 @@ export default function TicTacToe({ game, userX, userO }) {
           status: "finished",
         })
         .eq("id", game.id);
-      console.log(user.id, 0, "loss", { opponent: getWinnerName(winner) });
-      updateUsersData(user.id, 0, "loss", { opponent: getWinnerName(winner) });
+
+      updateUsersData(user.id, -10, "loss", {
+        opponent: getWinnerName(winner),
+      });
+      updateUsersData(winner === userX.id ? userX.id : userO.id, 10, "win", {
+        opponent:
+          getPlayerName(winner === userX.id ? "user_x" : "user_o") ===
+          userX.username
+            ? userO.username
+            : userX.username,
+      });
     }
     if (isGameOver) {
       router.push("/");

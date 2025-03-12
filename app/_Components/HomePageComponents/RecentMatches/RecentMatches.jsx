@@ -45,7 +45,7 @@ function RecentMatches() {
   return (
     <div
       className="bg-gradient-to-b from-gray-900/60 to-gray-800 p-6 rounded-lg border border-gray-700 
-        shadow-xl transition-colors col-span-1 lg:col-span-3 h-75  flex flex-col gap-4"
+        shadow-xl transition-colors col-span-1 lg:col-span-3 h-75  flex flex-col gap-2"
     >
       {user ? (
         loading ? (
