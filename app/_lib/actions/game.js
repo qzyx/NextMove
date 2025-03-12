@@ -42,3 +42,21 @@ export async function getGame(gameId) {
   if (error) console.error("Error getting game:", error);
   return data;
 }
+export function calculateElo(
+  playerARating,
+  playerBRating,
+  scoreA,
+  kFactor = 32
+) {
+  // Calculate expected scores
+  const expectedA =
+    1 / (1 + Math.pow(10, (playerBRating - playerARating) / 400));
+  const expectedB =
+    1 / (1 + Math.pow(10, (playerARating - playerBRating) / 400));
+
+  // Update ratings
+  const newRatingA = playerARating + kFactor * (scoreA - expectedA);
+
+  console.log("New rating:", Math.round(newRatingA));
+  return Math.round(newRatingA) - playerARating;
+}

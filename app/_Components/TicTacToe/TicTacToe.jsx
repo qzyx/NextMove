@@ -6,6 +6,7 @@ import { supabase } from "@/app/_lib/supabase";
 import { useAuth } from "@/app/_lib/authContext/AuthContext";
 import { useRouter } from "next/navigation";
 import { updateUsersData } from "@/app/_lib/actions/user";
+import { calculateElo } from "@/app/_lib/actions/game";
 
 export default function TicTacToe({ game, userX, userO }) {
   const router = useRouter();
@@ -79,20 +80,38 @@ export default function TicTacToe({ game, userX, userO }) {
 
       if (gameWinner) {
         setWinner(gameWinner === "X" ? "user_x" : "user_o");
-        updateUsersData(gameWinner === "X" ? userX.id : userO.id, 10, "win", {
-          opponent:
-            getPlayerName(gameWinner === "X" ? "user_x" : "user_o") ===
-            userX.username
-              ? userO.username
-              : userX.username,
-        });
-        updateUsersData(gameWinner === "X" ? userO.id : userX.id, -10, "loss", {
-          opponent:
-            getPlayerName(gameWinner === "X" ? "user_x" : "user_o") ===
-            userX.username
-              ? userX.username
-              : userO.username,
-        });
+        updateUsersData(
+          gameWinner === "X" ? userX.id : userO.id,
+          calculateElo(
+            gameWinner === "X" ? userX.elo : userO.elo,
+            gameWinner === "X" ? userO.elo : userX.elo,
+            1
+          ),
+          "win",
+          {
+            opponent:
+              getPlayerName(gameWinner === "X" ? "user_x" : "user_o") ===
+              userX.username
+                ? userO.username
+                : userX.username,
+          }
+        );
+        updateUsersData(
+          gameWinner === "X" ? userO.id : userX.id,
+          calculateElo(
+            gameWinner === "X" ? userO.elo : userX.elo,
+            gameWinner === "X" ? userX.elo : userO.elo,
+            0
+          ),
+          "loss",
+          {
+            opponent:
+              getPlayerName(gameWinner === "X" ? "user_x" : "user_o") ===
+              userX.username
+                ? userX.username
+                : userO.username,
+          }
+        );
       } else if (!gameIsOver) {
         setCurrentPlayer(nextPlayer);
       }
