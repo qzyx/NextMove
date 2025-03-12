@@ -274,8 +274,8 @@ export default function TicTacToe({ game, userX, userO }) {
       updateUsersData(
         winner === userX.id ? userX.id : userO.id,
         calculateElo(
-          winner === userX.id ? userO.elo : userX.elo,
           winner === userX.id ? userX.elo : userO.elo,
+          winner === userX.id ? userO.elo : userX.elo,
           1
         ),
         "win",
