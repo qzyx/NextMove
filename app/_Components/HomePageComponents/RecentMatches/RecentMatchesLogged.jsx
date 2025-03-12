@@ -36,7 +36,7 @@ export default function RecentMatchesLogged({ localUserProfile }) {
       </div>
 
       {/* Rows - each match will have its values under the right column */}
-      <div className="flex flex-col mt-2">
+      <div className="flex flex-col mt-2 overflow-y-hidden">
         {lastFourMatches && lastFourMatches.length > 0 ? (
           lastFourMatches.map((match, idx) => (
             <div

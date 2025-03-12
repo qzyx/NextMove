@@ -14,10 +14,10 @@ export default function TicTacToe({ game, userX, userO }) {
   const [board, setBoard] = useState(game.board);
   const [currentPlayer, setCurrentPlayer] = useState(game.current_player);
   const [winner, setWinner] = useState(game.winner);
+  const [timer, setTimer] = useState(30);
   const [isGameOver, setIsGameOver] = useState(
     !!game.winner || isBoardFull(game.board)
   );
-
   const [gameState, setGameState] = useState(game);
 
   // Define symbols for players
@@ -31,6 +31,34 @@ export default function TicTacToe({ game, userX, userO }) {
     (user?.id === game.user_x && currentPlayer === "user_x") ||
     (user?.id === game.user_o && currentPlayer === "user_o");
 
+  // Handle timer with useEffect to prevent multiple timers
+  useEffect(() => {
+    let timerId;
+
+    if (isMyTurn && !isGameOver) {
+      // Reset timer when it's your turn
+      if (game.timer) setTimer(game.timer);
+      setTimer(30);
+
+      timerId = setInterval(() => {
+        setTimer((prev) => {
+          // If timer reaches 0, auto-forfeit
+          if (prev <= 1) {
+            handleForfeit();
+            return 0;
+          }
+          // Simply decrement timer without database update
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    // Clear interval when component unmounts or conditions change
+    return () => {
+      if (timerId) clearInterval(timerId);
+    };
+  }, [isMyTurn, isGameOver, currentPlayer]);
+
   // Function to update game state in database
   const updateGameInDatabase = useCallback(
     async (newBoard, newCurrentPlayer, newWinner, isOver) => {
@@ -42,6 +70,7 @@ export default function TicTacToe({ game, userX, userO }) {
             current_player: newCurrentPlayer,
             winner: newWinner,
             status: isOver ? "finished" : "in_process",
+            last_move: new Date(),
           })
           .eq("id", game.id);
 
@@ -228,7 +257,7 @@ export default function TicTacToe({ game, userX, userO }) {
   return (
     <div className="flex flex-col items-center p-8 rounded-xl">
       {/* Game Info */}
-      <div className="w-full max-w-md mb-8 bg-gray-900/60 p-4 rounded-lg border border-gray-700/50">
+      <div className="w-full max-w-md mb-4 bg-gray-900/60 p-4 rounded-lg border border-gray-700/50">
         {/* Players info with current turn indicator */}
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-2">
@@ -278,6 +307,16 @@ export default function TicTacToe({ game, userX, userO }) {
           )}
         </div>
       </div>
+      {isMyTurn && (
+        <span className="mb-4">
+          <span
+            className={`${timer < 10 && "text-red-500"} text-green-500 text-lg`}
+          >
+            {timer}
+          </span>{" "}
+          seconds remaining
+        </span>
+      )}
 
       {/* Game board */}
       <div className="grid grid-cols-3 gap-2 grid-rows-3">
