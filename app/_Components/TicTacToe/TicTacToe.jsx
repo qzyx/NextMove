@@ -15,10 +15,30 @@ export default function TicTacToe({ game, userX, userO }) {
   const [currentPlayer, setCurrentPlayer] = useState(game.current_player);
   const [winner, setWinner] = useState(game.winner);
   const [timer, setTimer] = useState(30);
+  const [playTime, setPlayTime] = useState(0);
+
   const [isGameOver, setIsGameOver] = useState(
     !!game.winner || isBoardFull(game.board)
   );
   const [gameState, setGameState] = useState(game);
+  // Live Playtime updating feature
+  useEffect(() => {
+    if (!isGameOver) {
+      const intervalId = setInterval(() => {
+        setPlayTime(playTime + 1);
+        updatePlayTime();
+      }, 1000);
+      const updatePlayTime = async () => {
+        await supabase
+          .from("games")
+          .update({ play_time: playTime + 1 })
+          .eq("id", game.id);
+      };
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [isGameOver, playTime]);
 
   // Define symbols for players
   const symbols = {
@@ -61,7 +81,7 @@ export default function TicTacToe({ game, userX, userO }) {
 
   // Function to update game state in database
   const updateGameInDatabase = useCallback(
-    async (newBoard, newCurrentPlayer, newWinner, isOver) => {
+    async (newBoard, newCurrentPlayer, newWinner, isOver, playTime) => {
       try {
         const { error } = await supabase
           .from("games")
@@ -150,7 +170,8 @@ export default function TicTacToe({ game, userX, userO }) {
         newBoard,
         gameWinner ? currentPlayer : nextPlayer,
         gameWinner ? (gameWinner === "X" ? userX.id : userO.id) : null,
-        gameIsOver
+        gameIsOver,
+        playTime
       );
     },
     [board, currentPlayer, isGameOver, isMyTurn, updateGameInDatabase]
