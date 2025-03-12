@@ -24,7 +24,7 @@ async function page({ params }) {
 
   return (
     <main className="w-full min-h-screen flex items-center justify-center">
-      <div className="bg-gradient-to-b from-gray-900/80 to-gray-800/80 rounded-xl border border-gray-700 shadow-xl p-4">
+      <div className="bg-gradient-to-b from-gray-900/50 to-gray-800/50 rounded-xl border border-gray-700 shadow-xl p-4">
         <TicTacToe game={game} userO={userO} userX={userX} />
       </div>
     </main>
