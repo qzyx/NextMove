@@ -36,8 +36,8 @@ export default function ContactPage() {
           Contact Us
         </h1>
         <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto px-2">
-          Have questions or feedback? We're here to help you with any inquiries
-          about NextMove.
+          Have questions or feedback? We&apos;re here to help you with any
+          inquiries about NextMove.
         </p>
       </section>
 
@@ -208,8 +208,8 @@ export default function ContactPage() {
                 NextMove experience.
               </li>
               <li>
-                For urgent matters, please indicate "URGENT" in your email
-                subject line.
+                For urgent matters, please indicate &quot;URGENT&quot; in your
+                email subject line.
               </li>
             </ul>
           </div>

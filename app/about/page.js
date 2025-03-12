@@ -160,7 +160,7 @@ export default function AboutPage() {
             <p className="mb-4 text-gray-300">
               The ELO rating system is a method for calculating the relative
               skill levels of players. Originally developed for chess by Arpad
-              Elo, it's now widely used in competitive gaming.
+              Elo, it&apos;s now widely used in competitive gaming.
             </p>
             <p className="mb-4 text-gray-300">
               In NextMove, every player starts with a base rating of 500. After
@@ -322,7 +322,7 @@ export default function AboutPage() {
                 </h3>
                 <p className="text-gray-300">
                   Our matchmaking system pairs you with opponents of similar
-                  skill levels. As you improve and win matches, you'll face
+                  skill levels. As you improve and win matches, you&apos;ll face
                   increasingly challenging opponents.
                 </p>
               </div>
