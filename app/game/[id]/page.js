@@ -1,4 +1,4 @@
-import TicTacToe from "@/app/_Components/TicTacToe/TicTacToe";
+import TicTacToe from "@/app/_Components/Game/TicTacToe";
 import { getUserProfile } from "@/app/_lib/actions/auth";
 import { getGame } from "@/app/_lib/actions/game";
 

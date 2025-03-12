@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import InputBox from "./InputBox";
+import InputBox from "../UI/InputBox";
 import { supabase } from "@/app/_lib/supabase";
 import { useAuth } from "@/app/_lib/authContext/AuthContext";
 import { useRouter } from "next/navigation";

@@ -1,6 +1,6 @@
 "use client";
 
-import LoadingSpinner from "../_Components/UI/LoadingSpinner";
+import LoadingSpinner from "./LoadingSpinner";
 import StopQueueButton from "./StopQueueButton";
 
 export default function QueueForm({ localUserProfile, message }) {
