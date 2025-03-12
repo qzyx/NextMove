@@ -126,7 +126,10 @@ export default function TicTacToe({ game, userX, userO }) {
       // Update local state
       setBoard(newBoard);
       setIsGameOver(gameIsOver);
-
+      if (boardFull) {
+        updateUsersData(userX.id, 0, "draw", { opponent: userO.username });
+        updateUsersData(userO.id, 0, "draw", { opponent: userX.username });
+      }
       if (gameWinner) {
         setWinner(gameWinner === "X" ? "user_x" : "user_o");
         updateUsersData(
