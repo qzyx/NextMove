@@ -17,7 +17,7 @@ import {
 } from "@/app/_lib/actions/user";
 
 async function page({ params }) {
-  const { profileId } = params;
+  const { profileId } = await params;
   const profile = await getUserById(profileId);
   const lastFiveMatches = profile.recent_matches.slice(0, 5);
   // Static player data for demo
