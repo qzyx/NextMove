@@ -10,10 +10,16 @@ import {
   BookOpen,
   Flag,
 } from "lucide-react";
+import {
+  formatDate,
+  getLocalUserInfo,
+  getUserById,
+} from "@/app/_lib/actions/user";
 
 async function page({ params }) {
   const { profileId } = params;
-
+  const profile = await getUserById(profileId);
+  const lastFiveMatches = profile.recent_matches.slice(0, 5);
   // Static player data for demo
   const playerData = {
     username: profileId,
@@ -76,21 +82,27 @@ async function page({ params }) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column - Player Info */}
         <div className="bg-gradient-to-b from-gray-900/60 to-gray-800 p-6 rounded-lg border border-gray-700 shadow-xl">
-          <div className="flex flex-col items-center mb-6">
-            <div className="relative w-28 h-28 mb-4 rounded-full overflow-hidden bg-gray-800 border-2 border-gray-700">
-              {/* Placeholder avatar using first letter of username */}
-              <div className="absolute inset-0 flex items-center justify-center text-4xl font-bold">
-                {profileId.charAt(0).toUpperCase()}
-              </div>
-            </div>
-            <h1 className="text-2xl font-bold">{playerData.displayName}</h1>
+          <div className="flex flex-col gap-2 items-center mb-6">
+            <Image
+              className="h-28 rounded-full"
+              src={profile.avatar_url ? profile.avatar_url : "/NotSetPfp.jpg"}
+              alt={`${profile.username}'s profile picture`}
+              width={112}
+              height={112}
+            />
+            <h1 className="text-2xl font-bold">{profile.username}</h1>
             <p className="text-gray-400">@{profileId}</p>
 
             <div className="mt-4 flex items-center gap-2">
-              <Award className="text-yellow-500" size={20} />
-              <span className="font-semibold">Rank #{playerData.rank}</span>
-              <span className="mx-2">•</span>
-              <span className="font-semibold">{playerData.elo} ELO</span>
+              {profile.rank !== 0 && (
+                <>
+                  <Award className="text-yellow-500" size={20} />
+                  <span className="font-semibold">Rank #{profile.rank}</span>
+                </>
+              )}
+
+              <span className="mx-1">•</span>
+              <span className="font-semibold">{profile.elo} ELO</span>
             </div>
           </div>
 
@@ -99,7 +111,7 @@ async function page({ params }) {
               <Calendar size={18} className="text-gray-400" />
               <div>
                 <p className="text-sm text-gray-400">Member since</p>
-                <p>{playerData.joinDate}</p>
+                <p>{formatDate(profile.created_at)}</p>
               </div>
             </div>
 
@@ -115,25 +127,8 @@ async function page({ params }) {
               <Users size={18} className="text-gray-400" />
               <div>
                 <p className="text-sm text-gray-400">Total games</p>
-                <p>{playerData.totalGames}</p>
+                <p>{profile.total_games}</p>
               </div>
-            </div>
-          </div>
-
-          <div className="mt-6 pt-6 border-t border-gray-700">
-            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Award size={18} />
-              Achievements
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {playerData.achievements.map((achievement, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 bg-gray-800 rounded-full text-sm"
-                >
-                  {achievement}
-                </span>
-              ))}
             </div>
           </div>
         </div>
@@ -149,19 +144,19 @@ async function page({ params }) {
             <div className="bg-gray-800 p-4 rounded-lg text-center">
               <p className="text-sm text-gray-400">Wins</p>
               <p className="text-2xl font-bold text-green-500">
-                {playerData.wins}
+                {profile.wins}
               </p>
             </div>
             <div className="bg-gray-800 p-4 rounded-lg text-center">
               <p className="text-sm text-gray-400">Losses</p>
               <p className="text-2xl font-bold text-red-500">
-                {playerData.losses}
+                {profile.losses}
               </p>
             </div>
             <div className="bg-gray-800 p-4 rounded-lg text-center">
               <p className="text-sm text-gray-400">Draws</p>
               <p className="text-2xl font-bold text-yellow-500">
-                {playerData.draws}
+                {profile.draws}
               </p>
             </div>
           </div>
@@ -190,7 +185,7 @@ async function page({ params }) {
           </h2>
 
           <div className="space-y-4">
-            {playerData.recentMatches.map((match, index) => (
+            {lastFiveMatches.map((match, index) => (
               <div
                 key={index}
                 className="bg-gray-800 p-3 rounded-md flex items-center justify-between"
@@ -210,14 +205,14 @@ async function page({ params }) {
                 <div className="flex items-center gap-4">
                   <span
                     className={`text-sm ${
-                      match.eloChange.startsWith("+")
+                      match.result === "win"
                         ? "text-green-500"
-                        : match.eloChange.startsWith("-")
+                        : match.result === "loss"
                         ? "text-red-500"
                         : "text-gray-400"
                     }`}
                   >
-                    {match.eloChange}
+                    {match.elo_change}
                   </span>
                   <span className="text-xs text-gray-500">{match.date}</span>
                 </div>
@@ -249,38 +244,36 @@ async function page({ params }) {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-800">
-              {[...playerData.recentMatches, ...playerData.recentMatches].map(
-                (match, index) => (
-                  <tr key={index} className="hover:bg-gray-800/50">
-                    <td className="py-3 pl-2">{match.opponent}</td>
-                    <td
-                      className={`py-3 ${
-                        match.result === "win"
-                          ? "text-green-500"
-                          : match.result === "loss"
-                          ? "text-red-500"
-                          : "text-yellow-500"
-                      }`}
-                    >
-                      {match.result.charAt(0).toUpperCase() +
-                        match.result.slice(1)}
-                    </td>
-                    <td
-                      className={`py-3 ${
-                        match.eloChange.startsWith("+")
-                          ? "text-green-500"
-                          : match.eloChange.startsWith("-")
-                          ? "text-red-500"
-                          : "text-gray-400"
-                      }`}
-                    >
-                      {match.eloChange}
-                    </td>
-                    <td className="py-3">12:45</td>
-                    <td className="py-3 pr-2 text-gray-400">{match.date}</td>
-                  </tr>
-                )
-              )}
+              {[...lastFiveMatches, ...lastFiveMatches].map((match, index) => (
+                <tr key={index} className="hover:bg-gray-800/50">
+                  <td className="py-3 pl-2">{match.opponent}</td>
+                  <td
+                    className={`py-3 ${
+                      match.result === "win"
+                        ? "text-green-500"
+                        : match.result === "loss"
+                        ? "text-red-500"
+                        : "text-yellow-500"
+                    }`}
+                  >
+                    {match.result.charAt(0).toUpperCase() +
+                      match.result.slice(1)}
+                  </td>
+                  <td
+                    className={`py-3 ${
+                      match.result === "win"
+                        ? "text-green-500"
+                        : match.result === "loss"
+                        ? "text-red-500"
+                        : "text-gray-400"
+                    }`}
+                  >
+                    {match.elo_change}
+                  </td>
+                  <td className="py-3">12:45</td>
+                  <td className="py-3 pr-2 text-gray-400">{match.date}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

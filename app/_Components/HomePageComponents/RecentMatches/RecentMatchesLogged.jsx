@@ -1,4 +1,5 @@
 import { BookOpen } from "lucide-react";
+import Link from "next/link";
 
 export default function RecentMatchesLogged({ localUserProfile }) {
   if (localUserProfile === null) return null;
@@ -39,44 +40,43 @@ export default function RecentMatchesLogged({ localUserProfile }) {
       <div className="flex flex-col mt-2 overflow-y-hidden">
         {lastFourMatches && lastFourMatches.length > 0 ? (
           lastFourMatches.map((match, idx) => (
-            <div
-              key={idx}
-              className="grid grid-cols-4 sm:grid-cols-5 text-white text-xs sm:text-sm border-b border-gray-700/40 py-2.5 hover:bg-gray-800/30 rounded transition-colors"
-            >
-              <span className="sm:text-center text-start pl-3 truncate">
-                {match.opponent}
-              </span>
-              <span
-                className={`${
-                  match.result === "win"
-                    ? "text-green-400 font-medium"
-                    : match.result === "loss"
-                    ? "text-red-400 font-medium"
-                    : "text-yellow-400 font-medium"
-                } text-center`}
-              >
-                {match.result}
-              </span>
-              <span
-                className={`text-center font-medium ${
-                  match.elo_change > 0
-                    ? "text-green-500"
-                    : match.elo_change < 0
-                    ? "text-red-500"
-                    : "text-yellow-500"
-                }`}
-              >
-                {match.elo_change > 0
-                  ? `+${match.elo_change}`
-                  : match.elo_change}
-              </span>
-              <span className="text-gray-300 text-center font-mono text-xs">
-                {formatPlaytime(match.gameLength)}
-              </span>
-              <span className="hidden sm:block text-gray-500 text-center text-xs">
-                {match.date}
-              </span>
-            </div>
+            <Link href={`/profile/${match.opponent_id}`} key={idx}>
+              <div className="grid grid-cols-4 sm:grid-cols-5 text-white text-xs sm:text-sm border-b border-gray-700/40 py-2.5 hover:bg-gray-800/30 rounded transition-colors">
+                <span className="sm:text-center text-start pl-3 truncate">
+                  {match.opponent}
+                </span>
+                <span
+                  className={`${
+                    match.result === "win"
+                      ? "text-green-400 font-medium"
+                      : match.result === "loss"
+                      ? "text-red-400 font-medium"
+                      : "text-yellow-400 font-medium"
+                  } text-center`}
+                >
+                  {match.result}
+                </span>
+                <span
+                  className={`text-center font-medium ${
+                    match.elo_change > 0
+                      ? "text-green-500"
+                      : match.elo_change < 0
+                      ? "text-red-500"
+                      : "text-yellow-500"
+                  }`}
+                >
+                  {match.elo_change > 0
+                    ? `+${match.elo_change}`
+                    : match.elo_change}
+                </span>
+                <span className="text-gray-300 text-center font-mono text-xs">
+                  {formatPlaytime(match.gameLength)}
+                </span>
+                <span className="hidden sm:block text-gray-500 text-center text-xs">
+                  {match.date}
+                </span>
+              </div>
+            </Link>
           ))
         ) : (
           <div className="text-center py-8 text-gray-500">

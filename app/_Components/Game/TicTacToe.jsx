@@ -127,8 +127,14 @@ export default function TicTacToe({ game, userX, userO }) {
       setBoard(newBoard);
       setIsGameOver(gameIsOver);
       if (boardFull) {
-        updateUsersData(userX.id, 0, "draw", { opponent: userO.username });
-        updateUsersData(userO.id, 0, "draw", { opponent: userX.username });
+        updateUsersData(userX.id, 0, "draw", {
+          opponent: userO.username,
+          opponent_id: userO.id,
+        });
+        updateUsersData(userO.id, 0, "draw", {
+          opponent: userX.username,
+          opponent_id: userX.id,
+        });
       }
       if (gameWinner) {
         setWinner(gameWinner === "X" ? "user_x" : "user_o");
@@ -141,6 +147,7 @@ export default function TicTacToe({ game, userX, userO }) {
           ),
           "win",
           {
+            opponent_id: gameWinner === "X" ? userO.id : userX.id,
             opponent:
               getPlayerName(gameWinner === "X" ? "user_x" : "user_o") ===
               userX.username
@@ -157,6 +164,7 @@ export default function TicTacToe({ game, userX, userO }) {
           ),
           "loss",
           {
+            opponent_id: gameWinner === "X" ? userX.id : userO.id,
             opponent:
               getPlayerName(gameWinner === "X" ? "user_x" : "user_o") ===
               userX.username
@@ -271,6 +279,7 @@ export default function TicTacToe({ game, userX, userO }) {
         ),
         "loss",
         {
+          opponent_id: winner === userX.id ? userX.id : userO.id,
           opponent: getWinnerName(winner),
         }
       );
@@ -283,6 +292,7 @@ export default function TicTacToe({ game, userX, userO }) {
         ),
         "win",
         {
+          opponent_id: winner === userX.id ? userO.id : userX.id,
           opponent:
             getPlayerName(winner === userX.id ? "user_x" : "user_o") ===
             userX.username

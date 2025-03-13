@@ -47,6 +47,7 @@ export async function updateUsersData(userId, eloChange, action, matchInfo) {
       total_games: total_games + 1,
       recent_matches: [
         {
+          opponent_id: matchInfo.opponent_id,
           opponent: matchInfo.opponent,
           result: action,
           elo_change: eloChange,
@@ -58,4 +59,26 @@ export async function updateUsersData(userId, eloChange, action, matchInfo) {
     .eq("id", userId);
   if (error) console.error("Error updating user data:", error);
   return data;
+}
+export async function getUserById(userId) {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .single();
+  if (error) console.error("Error getting user:", error);
+  return data;
+}
+export function formatDate(dateInput) {
+  if (!dateInput) return "N/A";
+
+  const date = new Date(dateInput);
+
+  if (isNaN(date.getTime())) return "Invalid date";
+
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+
+  return `${day}.${month}.${year}`;
 }

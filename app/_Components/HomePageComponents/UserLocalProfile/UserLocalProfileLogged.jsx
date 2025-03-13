@@ -1,21 +1,9 @@
+import { formatDate } from "@/app/_lib/actions/user";
 import { Award, Calendar, Clock, Users } from "lucide-react";
+import Link from "next/link";
 
 export default function LoggedIn({ localUserProfile }) {
   if (localUserProfile === null) return null;
-
-  function formatDate(dateInput) {
-    if (!dateInput) return "N/A";
-
-    const date = new Date(dateInput);
-
-    if (isNaN(date.getTime())) return "Invalid date";
-
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${day}.${month}.${year}`;
-  }
 
   return (
     <>
@@ -23,7 +11,7 @@ export default function LoggedIn({ localUserProfile }) {
         <div className="h-14 w-14 rounded-full overflow-hidden border-2 border-gray-700 shadow-md">
           <img
             src={
-              localUserProfile.avatar_url !== ""
+              localUserProfile.avatar_url
                 ? localUserProfile.avatar_url
                 : "NotSetPfp.jpg"
             }
@@ -35,6 +23,12 @@ export default function LoggedIn({ localUserProfile }) {
           <span className="text-xl font-semibold">
             {localUserProfile.username}
           </span>
+          <Link
+            className="ml-2 text-gray-300 hover:text-white"
+            href={`/profile/${localUserProfile.id}`}
+          >
+            Go to profile
+          </Link>
           <div className="flex items-center mt-1">
             <span className="text-gray-400 text-sm">ELO:</span>
             <span className="mx-1.5 font-medium">{localUserProfile.elo}</span>
