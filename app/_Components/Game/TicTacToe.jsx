@@ -400,9 +400,6 @@ export default function TicTacToe({ game, userX, userO }) {
 
       {/* Game controls */}
       <div className="flex gap-4 mt-6">
-        <button className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 cursor-pointer text-white rounded-lg font-medium tracking-wide transition-colors">
-          Chat
-        </button>
         <button
           onClick={handleForfeit}
           className="px-5 py-2.5 bg-red-600 hover:bg-red-700 cursor-pointer text-white rounded-lg font-medium tracking-wide transition-colors"
