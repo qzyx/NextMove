@@ -40,6 +40,7 @@ export default function LoggedIn({ localUserProfile }) {
               </>
             )}
           </div>
+          <span className="text-gray-300 text-sm">@{localUserProfile.id}</span>
         </div>
       </div>
 
