@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import {
   formatDate,
+  formatPlaytime,
   getLocalUserInfo,
   getUserById,
 } from "@/app/_lib/actions/user";
@@ -20,54 +21,8 @@ async function page({ params }) {
   const { profileId } = params;
   const profile = await getUserById(profileId);
   const lastFiveMatches = profile.recent_matches.slice(0, 5);
-  // Static player data for demo
-  const playerData = {
-    username: profileId,
-    displayName: "Jano Fero",
-    elo: 1853,
-    rank: 4,
-    joinDate: "October 2022",
-    totalGames: 247,
-    wins: 142,
-    losses: 89,
-    draws: 16,
-    winRate: "57.5%",
-    averageGameTime: "14:32",
-    achievements: ["First Win", "10 Game Streak", "Master Tactician"],
-    recentMatches: [
-      {
-        opponent: "ChessMaster",
-        result: "win",
-        eloChange: "+12",
-        date: "2 hours ago",
-      },
-      {
-        opponent: "KnightRider",
-        result: "win",
-        eloChange: "+8",
-        date: "Yesterday",
-      },
-      {
-        opponent: "QueenSlayer",
-        result: "loss",
-        eloChange: "-10",
-        date: "2 days ago",
-      },
-      {
-        opponent: "TacticalGenius",
-        result: "draw",
-        eloChange: "0",
-        date: "3 days ago",
-      },
-      {
-        opponent: "RookDefender",
-        result: "win",
-        eloChange: "+15",
-        date: "5 days ago",
-      },
-    ],
-  };
 
+  const winRate = profile.wins / profile.total_games;
   return (
     <main className="min-h-screen w-full text-white p-4 md:p-8 max-w-7xl mx-auto mt-10">
       {/* Back button */}
@@ -118,8 +73,8 @@ async function page({ params }) {
             <div className="flex items-center gap-3">
               <Clock size={18} className="text-gray-400" />
               <div>
-                <p className="text-sm text-gray-400">Average game time</p>
-                <p>{playerData.averageGameTime}</p>
+                <p className="text-sm text-gray-400">Total Playtime</p>
+                <p>{formatPlaytime(profile.total_playtime)}</p>
               </div>
             </div>
 
@@ -165,12 +120,12 @@ async function page({ params }) {
             <div>
               <div className="flex justify-between mb-2">
                 <span>Win Rate</span>
-                <span>{playerData.winRate}</span>
+                <span>{winRate.toFixed(2)}</span>
               </div>
               <div className="w-full bg-gray-800 rounded-full h-2">
                 <div
                   className="bg-green-500 h-2 rounded-full"
-                  style={{ width: playerData.winRate }}
+                  style={{ width: winRate.toFixed(2) + "%" }}
                 ></div>
               </div>
             </div>

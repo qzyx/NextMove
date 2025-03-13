@@ -1,4 +1,4 @@
-import { formatDate } from "@/app/_lib/actions/user";
+import { formatDate, formatPlaytime } from "@/app/_lib/actions/user";
 import { Award, Calendar, Clock, Users } from "lucide-react";
 import Link from "next/link";
 
@@ -62,9 +62,9 @@ export default function LoggedIn({ localUserProfile }) {
             <Clock size={16} className="text-purple-400" />
           </span>
           <span className="flex flex-col">
-            <span className="text-xs text-gray-400">Average Playtime</span>
+            <span className="text-xs text-gray-400">Total Playtime</span>
             <span className="text-sm">
-              {localUserProfile.average_playtime || "No data"}
+              {formatPlaytime(localUserProfile.total_playtime) || "No data"}
             </span>
           </span>
         </div>

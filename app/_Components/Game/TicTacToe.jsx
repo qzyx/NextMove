@@ -127,14 +127,26 @@ export default function TicTacToe({ game, userX, userO }) {
       setBoard(newBoard);
       setIsGameOver(gameIsOver);
       if (boardFull) {
-        updateUsersData(userX.id, 0, "draw", {
-          opponent: userO.username,
-          opponent_id: userO.id,
-        });
-        updateUsersData(userO.id, 0, "draw", {
-          opponent: userX.username,
-          opponent_id: userX.id,
-        });
+        updateUsersData(
+          userX.id,
+          0,
+          "draw",
+          {
+            opponent: userO.username,
+            opponent_id: userO.id,
+          },
+          game.id
+        );
+        updateUsersData(
+          userO.id,
+          0,
+          "draw",
+          {
+            opponent: userX.username,
+            opponent_id: userX.id,
+          },
+          game.id
+        );
       }
       if (gameWinner) {
         setWinner(gameWinner === "X" ? "user_x" : "user_o");
@@ -153,7 +165,8 @@ export default function TicTacToe({ game, userX, userO }) {
               userX.username
                 ? userO.username
                 : userX.username,
-          }
+          },
+          game.id
         );
         updateUsersData(
           gameWinner === "X" ? userO.id : userX.id,
@@ -170,7 +183,8 @@ export default function TicTacToe({ game, userX, userO }) {
               userX.username
                 ? userX.username
                 : userO.username,
-          }
+          },
+          game.id
         );
       } else if (!gameIsOver) {
         setCurrentPlayer(nextPlayer);
@@ -281,7 +295,8 @@ export default function TicTacToe({ game, userX, userO }) {
         {
           opponent_id: winner === userX.id ? userX.id : userO.id,
           opponent: getWinnerName(winner),
-        }
+        },
+        game.id
       );
       updateUsersData(
         winner === userX.id ? userX.id : userO.id,
@@ -298,7 +313,8 @@ export default function TicTacToe({ game, userX, userO }) {
             userX.username
               ? userO.username
               : userX.username,
-        }
+        },
+        game.id
       );
     }
     if (isGameOver) {

@@ -17,7 +17,21 @@ export async function changeUserStatus(userId, status) {
     .eq("id", userId);
   if (error) console.error("Error updating user status:", error);
 }
-export async function updateUsersData(userId, eloChange, action, matchInfo) {
+export async function updateUsersData(
+  userId,
+  eloChange,
+  action,
+  matchInfo,
+  gameId
+) {
+  const { data: game, error: gameError } = await supabase
+    .from("games")
+    .select("*")
+    .eq("id", gameId)
+    .single();
+  if (gameError) console.error("Error fetching game data:", gameError);
+  const { play_time } = game;
+
   // First, get the current user data
   const { data: userData, error: fetchError } = await supabase
     .from("profiles")
@@ -30,7 +44,15 @@ export async function updateUsersData(userId, eloChange, action, matchInfo) {
     return;
   }
 
-  const { wins, losses, draws, total_games, recent_matches, elo } = userData;
+  const {
+    wins,
+    losses,
+    draws,
+    total_games,
+    recent_matches,
+    elo,
+    total_playtime,
+  } = userData;
 
   const { data, error } = await supabase
     .from("profiles")
@@ -45,8 +67,10 @@ export async function updateUsersData(userId, eloChange, action, matchInfo) {
       losses: action === "loss" ? losses + 1 : losses,
       draws: action === "draw" ? draws + 1 : draws,
       total_games: total_games + 1,
+      total_playtime: total_playtime + play_time,
       recent_matches: [
         {
+          play_time: play_time,
           opponent_id: matchInfo.opponent_id,
           opponent: matchInfo.opponent,
           result: action,
@@ -82,3 +106,10 @@ export function formatDate(dateInput) {
 
   return `${day}.${month}.${year}`;
 }
+export const formatPlaytime = (seconds) => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
+    .toString()
+    .padStart(2, "0")}`;
+};

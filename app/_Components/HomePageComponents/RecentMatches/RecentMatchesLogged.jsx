@@ -1,3 +1,4 @@
+import { formatPlaytime } from "@/app/_lib/actions/user";
 import { BookOpen } from "lucide-react";
 import Link from "next/link";
 
@@ -5,13 +6,6 @@ export default function RecentMatchesLogged({ localUserProfile }) {
   if (localUserProfile === null) return null;
 
   const lastFourMatches = localUserProfile.recent_matches.slice(0, 4);
-  const formatPlaytime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
-      .toString()
-      .padStart(2, "0")}`;
-  };
 
   return (
     <>
@@ -70,7 +64,7 @@ export default function RecentMatchesLogged({ localUserProfile }) {
                     : match.elo_change}
                 </span>
                 <span className="text-gray-300 text-center font-mono text-xs">
-                  {formatPlaytime(match.gameLength)}
+                  {formatPlaytime(match.play_time)}
                 </span>
                 <span className="hidden sm:block text-gray-500 text-center text-xs">
                   {match.date}
