@@ -22,7 +22,7 @@ export default function QueueForm({ localUserProfile, message }) {
         <p className="text-2xl font-light tracking-wider mb-1">
           Finding a match...
         </p>
-        <p className="text-gray-400 text-sm">Estimated wait time: ~1:30</p>
+        
       </div>
 
       <div className="bg-gray-800/60 px-5 py-3 rounded-lg">
