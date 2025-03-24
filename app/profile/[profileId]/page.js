@@ -22,7 +22,10 @@ async function page({ params }) {
   const profile = await getUserById(profileId);
   const lastFiveMatches = profile.recent_matches.slice(0, 5);
 
-  const winRate = profile.wins / profile.total_games;
+  const winRate =
+    profile.total_games > 0
+      ? Math.round(((profile.wins || 0) / profile.total_games) * 100)
+      : 0;
   return (
     <main className="min-h-screen w-full text-white p-4 md:p-8 max-w-7xl mx-auto mt-10">
       {/* Back button */}
@@ -120,7 +123,7 @@ async function page({ params }) {
             <div>
               <div className="flex justify-between mb-2">
                 <span>Win Rate</span>
-                <span>{winRate.toFixed(2)}</span>
+                <span>{winRate.toFixed(2)}%</span>
               </div>
               <div className="w-full bg-gray-800 rounded-full h-2">
                 <div
@@ -174,10 +177,6 @@ async function page({ params }) {
               </div>
             ))}
           </div>
-
-          <button className="w-full mt-6 py-2 bg-gray-800 hover:bg-gray-700 rounded-md border border-gray-700 transition-colors">
-            View All Matches
-          </button>
         </div>
       </div>
 
@@ -231,26 +230,6 @@ async function page({ params }) {
               ))}
             </tbody>
           </table>
-        </div>
-
-        <div className="mt-6 flex justify-center">
-          <div className="flex gap-2">
-            <button className="px-3 py-1 bg-gray-800 rounded-md border border-gray-700">
-              Previous
-            </button>
-            <button className="px-3 py-1 bg-gray-700 rounded-md border border-gray-600">
-              1
-            </button>
-            <button className="px-3 py-1 bg-gray-800 rounded-md border border-gray-700">
-              2
-            </button>
-            <button className="px-3 py-1 bg-gray-800 rounded-md border border-gray-700">
-              3
-            </button>
-            <button className="px-3 py-1 bg-gray-800 rounded-md border border-gray-700">
-              Next
-            </button>
-          </div>
         </div>
       </div>
     </main>

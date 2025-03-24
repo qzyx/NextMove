@@ -51,7 +51,9 @@ export default function StatisticsLogged({ localUserProfile }) {
       <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
           <span className="text-sm text-gray-400">Win Rate</span>
-          <span className="text-sm font-bold text-white">{winRate}%</span>
+          <span className="text-sm font-bold text-white">
+            {winRate.toFixed(2)}%
+          </span>
         </div>
         <div className="w-full bg-gray-700 rounded-full h-2.5">
           <div
