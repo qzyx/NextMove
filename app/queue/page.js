@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 import PageLoadingSpinner from "../_Components/UI/PageLoadingSpinner";
-import { getLocalUserInfo } from "../_lib/actions/user";
-import { useAuth } from "../_lib/authContext/AuthContext";
 import QueueForm from "../_Components/UI/QueueForm";
 import { findMatch } from "../_lib/actions/game";
-import { useRouter } from "next/navigation";
-import { supabase } from "../_lib/supabase";
+import { getLocalUserInfo } from "../_lib/actions/user";
+import { useAuth } from "../_lib/authContext/AuthContext";
 import useRealtimeSubscription from "../_lib/hooks/useRealtimeSubscription";
 
 function Page() {

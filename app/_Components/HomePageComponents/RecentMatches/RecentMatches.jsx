@@ -10,7 +10,6 @@ import PageLoadingSpinner from "../../UI/PageLoadingSpinner";
 
 function RecentMatches() {
   const { user } = useAuth();
-  // Get only the last 4 matches
   const [localUserProfile, setLocalUserProfile] = useState(null);
   const [loading, setLoading] = useState(false);
 

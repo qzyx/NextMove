@@ -10,7 +10,6 @@ function Statistics() {
   const { user } = useAuth();
   const [localUserProfile, setLocalUserProfile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,7 +20,6 @@ function Statistics() {
         setLocalUserProfile(profileData);
       } catch (error) {
         console.error("Error fetching user profile:", error);
-        setError("Failed to load statistics");
       } finally {
         setLoading(false);
       }
