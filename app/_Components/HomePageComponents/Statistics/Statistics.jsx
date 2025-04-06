@@ -15,7 +15,7 @@ function Statistics() {
     async function fetchData() {
       try {
         setLoading(true);
-        setError(null);
+
         const profileData = await getLocalUserInfo(user);
         setLocalUserProfile(profileData);
       } catch (error) {
@@ -40,10 +40,6 @@ function Statistics() {
         loading ? (
           <div className="flex-1 flex items-center justify-center max-h-[350px]">
             <PageLoadingSpinner size={"lg"} />
-          </div>
-        ) : error ? (
-          <div className="flex-1 flex items-center justify-center max-h-[350px]">
-            <span className="text-red-500">{error}</span>
           </div>
         ) : (
           <StatisticsLogged localUserProfile={localUserProfile} />
